@@ -34,6 +34,19 @@ Move::Move()
 }
 
 /***************************************************
+ * MOVE :CONSTRUCTOR
+ ***************************************************/
+Move::Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn)
+{
+   this->source = from;
+   this->dest = to;
+   this->moveType = mt;
+   this->capture = capturePiece;
+   this->isWhite = whiteTurn;
+   this->text = getText();
+}
+
+/***************************************************
  * MOVE : STRING MOVES CONSTRUCTOR.
  ***************************************************/
 Move::Move(const std::string& moveString)
@@ -180,7 +193,7 @@ bool Move::operator==(const Move& other) const {
 }
 
 bool Move::operator<(const Move& other) const {
-    // One move is less than another if its source position is less,
-    // or if their sources are equal and its destination is less
-    return source < other.source || (source == other.source && dest < other.dest);
+   // One move is less than another if its source position is less,
+   // or if their sources are equal and its destination is less
+   return source < other.source || (source == other.source && dest < other.dest);
 }

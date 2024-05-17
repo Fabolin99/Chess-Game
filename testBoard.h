@@ -2,7 +2,7 @@
  * Header File:
  *    TEST BOARD
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for Board
  ************************************************************************/
@@ -42,6 +42,10 @@ public:
       set_h8();
       set_a8();
 
+      // lab 4
+      move_knightMove();
+      move_knightAttack();
+
       report("Board");
    }
 private:
@@ -65,5 +69,8 @@ private:
    void set_a1();
    void set_h8();
    void set_a8();
+
+   void move_knightMove();
+   void move_knightAttack();
 };
 

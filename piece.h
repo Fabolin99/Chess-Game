@@ -2,7 +2,7 @@
  * Header File:
  *    PIECE
  * Author:
-*    <your name here>
+*    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The Piece base class and all the derived classes:
  *       SPACE, KING, QUEEN, ROOK, KNIGHT, BISHOP, PAWN
@@ -33,6 +33,15 @@ class TestBishop;
 class TestKnight;
 class TestBoard;
 
+/***************************************************
+ * Struct
+ * A simple struct
+ ***************************************************/
+struct CR
+{
+   int col;
+   int row;
+};
 
 /***************************************************
  * PIECE
@@ -52,26 +61,26 @@ public:
 
    // constructors and stuff
    Piece(const Position& pos, bool isWhite = true) {}
-   Piece(int c, int r, bool isWhite = true) {}
+   Piece(int c, int r, bool isWhite = true);
    Piece(const Piece& piece) {}
    virtual ~Piece() {}
    virtual const Piece& operator = (const Piece& rhs);
 
    // getters
-   virtual bool operator == (PieceType pt) const { return true; }
-   virtual bool operator != (PieceType pt) const { return true; }
-   virtual bool isWhite()                  const { return true; }
-   virtual bool isMoved()                  const { return true; }
-   virtual int  getNMoves()                const { return 9999; }
-   virtual void decrementNMoves() {                      }
-   virtual const Position& getPosition()  const { return Position(); }
-   virtual bool justMoved(int currentMove) const { return true; }
+   virtual bool operator == (PieceType rhs) const { return this->getType() == rhs; }
+   virtual bool operator != (PieceType rhs) const { return this->getType() != rhs; }
+   virtual bool isWhite()                  const { return this->fWhite; }
+   virtual bool isMoved()                  const { return this->nMoves > 0; }
+   virtual int  getNMoves()                const { return this->nMoves; }
+   virtual void decrementNMoves()                {                      }
+   virtual const Position& getPosition()  const { return this->position; }
+   virtual bool justMoved(int currentMove) const { return (this->lastMove == currentMove || this->lastMove == currentMove - 1); }
 
    // setter
-   virtual void setLastMove(int currentMove) {                      }
+   virtual void setLastMove(int currentMove) { this->lastMove = currentMove; this->nMoves++; }
 
    // overwritten by the various pieces
-   virtual PieceType getType()                                    const = 0;
+   virtual PieceType getType()       const { return SPACE; }; // changed this
    virtual void display(ogstream* pgout)                         const = 0;
    void getMoves(set <Move>& moves, const Board& board) const;
 
@@ -140,7 +149,7 @@ public:
    void setLastMove(int currentMove) { assert(false); }
 
    // overwritten by the various pieces
-   PieceType getType()             const { assert(false); return SPACE; }
+   PieceType getType()            const { assert(false); return SPACE; } // added const in front of pieceType
    void display(ogstream* pgout)  const { assert(false); }
 };
 

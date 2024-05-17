@@ -2,7 +2,7 @@
  * Header File:
  *    SPACE
  * Author:
- *    <your name here> 
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The space
  ************************************************************************/

@@ -27,7 +27,7 @@ class Move
 {
 public:
 	enum MoveType { MOVE, ENPASSANT, CASTLE_KING, CASTLE_QUEEN, MOVE_ERROR };
-
+	Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn);
 
 	// DECLARATIONS
 	Move(const std::string& moveString); // Constructor for movements using strings ie: e6e5

@@ -49,7 +49,7 @@ public:
     // The Position class can work with other positions.
     Position(const Position& rhs) : colRow(rhs.colRow) { }
     Position() : colRow(0x99) { }
-    bool isInvalid() const { return (colRow & 0x88) != 0; }
+    bool isInvalid() const { return (colRow & 0x88) != 0 || (colRow & 0x07) > 7 || (colRow & 0x70) > 7 << 4; }
     bool isValid() const { return !isInvalid(); }
     void setValid() { colRow = 0x00; }
     void setInvalid() { colRow = 0xFF; }
@@ -83,8 +83,7 @@ public:
 
 
     // Row/Col : The position class can work with row/column, which are 0..7 and 0...7
-    Position(int c, int r) : colRow(static_cast<uint8_t>(r * 8 + c)) { }
-
+    Position(int c, int r) { set(c, r); }
 
     // The Position class can work with textual coordinates, such as "d4".
     Position(const char* s) { set(s); }

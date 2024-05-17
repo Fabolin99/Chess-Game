@@ -2,22 +2,26 @@
  * Source File:
  *    KNIGHT
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The knight class
  ************************************************************************/
 
 #include "pieceKnight.h"
 #include "board.h"
+#include "pieceSpace.h"
 #include "uiDraw.h"    // for draw*()
+#include <iostream>
 
- /***************************************************
- * PIECE DRAW
- * Draw all the pieces.
- ***************************************************/
+using namespace std;
+
+/***************************************************
+* PIECE DRAW
+* Draw all the pieces.
+***************************************************/
 void Knight::display(ogstream* pgout) const
 {
-
+   pgout->drawKnight(this->position, !this->fWhite);
 }
 
 
@@ -26,5 +30,35 @@ void Knight::display(ogstream* pgout) const
  *********************************************/
 void Knight::getMoves(set <Move>& moves, const Board& board) const
 {
+   CR possibleMoves[8] =
+   {
+            {-1,  2}, {1,  2},
+   {-2,  1},                    {2,  1},
+   {-2, -1},                    {2, -1},
+            {-1, -2}, {1, -2}
+   };
+   for (int i = 0; i < 8; i++)
+   {
+      int newRow = this->position.getRow() + possibleMoves[i].row;
+      int newCol = this->position.getCol() + possibleMoves[i].col;
 
+      Position newPos(newCol, newRow);
+
+      if (newPos.isValid())
+      {
+         if (board[newPos].getType() == SPACE)
+         {
+            Move move(this->position, newPos, Move::MOVE, INVALID, this->fWhite);
+            moves.insert(move);
+         }
+         else
+         {
+            if (board[newPos].isWhite() != this->fWhite)
+            {
+               Move move(this->position, newPos, Move::MOVE, board[newPos].getType(), this->fWhite);
+               moves.insert(move);
+            }
+         }
+      }
+   }
 }

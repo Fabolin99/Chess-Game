@@ -2,7 +2,7 @@
  * Source File:
  *    BOARD
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    A collection of pieces and a small amount of game state
  ************************************************************************/
@@ -50,11 +50,11 @@ Space space(0, 0);
 ***********************************************/
 const Piece& Board::operator [] (const Position& pos) const
 {
-   return space;
+   return *board[pos.getCol()][pos.getRow()];
 }
 Piece& Board::operator [] (const Position& pos)
 {
-   return space;
+   return *board[pos.getCol()][pos.getRow()];
 }
 
 /***********************************************
@@ -73,7 +73,9 @@ void Board::display(const Position& posHover, const Position& posSelect) const
  ************************************************/
 Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
 {
-
+     for (int r = 0; r < 8; r++)
+        for (int c = 0; c < 8; c++)
+            board[c][r] = nullptr;
 }
 
 
@@ -97,8 +99,6 @@ void Board::assertBoard()
 }
 
 
-
-
 /**********************************************
  * BOARD : MOVE
  *         Execute a move according to the contained instructions
@@ -108,7 +108,6 @@ void Board::move(const Move& move)
 {
 
 }
-
 
 
 /**********************************************
