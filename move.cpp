@@ -16,6 +16,7 @@
 #include <cctype> // for isdigit and isalpha
 #include <stdexcept> // for std::invalid_argument
 #include <map> // for the auto it on the move constructor
+#include <vector>
 
 using namespace std;
 
@@ -59,15 +60,13 @@ Move::Move(const std::string& moveString)
  ***************************************************/
 string Move::getText() const
 {
-    map<int, string> column
+    vector<string> column
     {
-        {0, "a"}, {1, "b"}, {2, "c"}, {3, "d"},
-        {4, "e"}, {5, "f"}, {6, "g"}, {7, "h"},
+        "a", "b", "c", "d", "e", "f", "g", "h"
     };
-    map<int, string> row
+    vector<string> row
     {
-        {0, "1"}, {1, "2"}, {2, "3"}, {3, "4"},
-        {4, "5"}, {5, "6"}, {6, "7"}, {7, "8"},
+        "1", "2", "3", "4", "5", "6", "7", "8"
     };
     map<MoveType, string> moveTypeChar
     {

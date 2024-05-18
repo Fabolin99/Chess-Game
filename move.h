@@ -39,6 +39,7 @@ public:
 	bool getCastleK() const { return CASTLE_KING; }
 	bool getCastleQ() const { return CASTLE_QUEEN; }
 	std::string getWhiteMove() const { return text; }
+	bool getIsWhite() const { return isWhite; } // extra to get the white turn
 	void setEnPassant() { this->moveType = ENPASSANT; }
 	void setCastle(bool isKing) {this->moveType = isKing ? CASTLE_KING : CASTLE_QUEEN; }
 	void setCastleQ() { this->moveType = CASTLE_QUEEN; }
