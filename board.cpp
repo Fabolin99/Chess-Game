@@ -14,6 +14,8 @@
 #include "pieceSpace.h"
 #include "pieceKnight.h"
 #include <cassert>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 
@@ -35,10 +37,29 @@ using namespace std;
  ***********************************************/
 void Board::reset(bool fFree)
 {
-   // free everything
-   for (int r = 0; r < 8; r++)
-      for (int c = 0; c < 8; c++)
-         board[c][r] = nullptr;
+    // free everything
+    if (fFree)
+    {
+        free();
+    }
+
+    // put the knights into the right spots
+    board[1][7] = new Knight(1, 7, false /*isWhite*/);              // left  black knight (col: 1, row: 7)
+    board[6][7] = new Knight(6, 7, false /*isWhite*/);              // right black knight (col: 6, row: 7)
+    board[1][0] = new Knight(1, 0, true  /*isWhite*/);              // left  white knight (col: 1, row: 0)
+    board[6][0] = new Knight(6, 0, true  /*isWhite*/);              // right white knight (col: 6, row: 0)
+
+    // fill in spaces
+    for (int col = 0; col < 8; col++)
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            if (board[col][row] == nullptr)
+            {
+                board[col][row] = new Space(col, row);
+            }
+        }
+    }
 }
 
 // we really REALLY need to delete this.
@@ -61,9 +82,20 @@ Piece& Board::operator [] (const Position& pos)
 * BOARD : DISPLAY
 *         Display the board
 ***********************************************/
-void Board::display(const Position& posHover, const Position& posSelect) const
+void Board::display() const
 {
+    // draw the squares
+    pgout->drawBoard();
 
+    // draw pieces
+    for (int col = 0; col < 8; col++)
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            if (board[col][row]->getType() != SPACE)
+                board[col][row]->display(pgout);            // call the display method of the piece         
+        }
+    }
 }
 
 
@@ -73,9 +105,13 @@ void Board::display(const Position& posHover, const Position& posSelect) const
  ************************************************/
 Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
 {
-     for (int r = 0; r < 8; r++)
+
+    // set all the squares to nullptr
+    for (int r = 0; r < 8; r++)
         for (int c = 0; c < 8; c++)
             board[c][r] = nullptr;
+    // reset board
+    reset();
 }
 
 
@@ -85,9 +121,15 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
  ************************************************/
 void Board::free()
 {
-
+    for (auto& row : board)
+    {
+        for (auto& piece : row)
+        {
+            delete piece;
+            piece = nullptr;
+        }
+    }
 }
-
 
 /**********************************************
  * BOARD : ASSERT BOARD
@@ -95,7 +137,12 @@ void Board::free()
  *********************************************/
 void Board::assertBoard()
 {
-
+    int pieceNum = 0;
+    for (int r = 0; r < 8; r++)
+        for (int c = 0; c < 8; c++)
+            if (board[c][r] != nullptr)
+                pieceNum++;
+    assert(pieceNum == 64);
 }
 
 
@@ -106,9 +153,28 @@ void Board::assertBoard()
  *********************************************/
 void Board::move(const Move& move)
 {
+    // Check if the source and destination positions are valid
+    if (!move.getSrc().isValid() || !move.getDes().isValid())
+        return;
 
+    // Check if there is a capture piece
+    if (move.getCapture() != SPACE || move.getCapture() != INVALID)
+    {
+        board[move.getDes().getCol()][move.getDes().getRow()] = new Space(move.getDes().getCol(), move.getDes().getRow());
+    }
+
+    // Get the piece at the source position
+    Piece* piece = board[move.getSrc().getCol()][move.getSrc().getRow()];
+
+    // Set the source position to a space
+    board[move.getSrc().getCol()][move.getSrc().getRow()] = board[move.getDes().getCol()][move.getDes().getRow()];
+
+    // Move the piece to the destination position
+    board[move.getDes().getCol()][move.getDes().getRow()] = piece;
+
+    // Increment the number of moves
+    numMoves++;
 }
-
 
 /**********************************************
  * BOARD EMPTY

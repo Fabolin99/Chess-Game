@@ -48,7 +48,8 @@ public:
    // getters
    virtual int  getCurrentMove() const { return numMoves; }
    virtual bool whiteTurn()      const { return numMoves % 2 == 0; }
-   virtual void display(const Position& posHover, const Position& posSelect) const;
+   virtual void display() const;
+   // virtual void display(const Position& posHover, const Position& posSelect) const;
    virtual const Piece& operator [] (const Position& pos) const;
 
    // setters
@@ -84,10 +85,11 @@ public:
    }
    ~BoardDummy() {                }
 
-   void display(const Position& posHover,
+   void display() const { assert(false); }
+   /*void display(const Position& posHover,
       const Position& posSelect) const {
       assert(false);
-   }
+   }*/
    void reset(bool fFree = true) { assert(false); }
    void move(const Move& move) { assert(false); }
    void undo() { assert(false); }

@@ -2,7 +2,7 @@
  * Header File:
  *    TEST KING
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for King
  ************************************************************************/

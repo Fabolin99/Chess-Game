@@ -11,10 +11,10 @@
 
 #include "unitTest.h"
 
-/***************************************************
- * ROOK TEST
- * Test the Rook class
- ***************************************************/
+ /***************************************************
+  * ROOK TEST
+  * Test the Rook class
+  ***************************************************/
 class TestRook : public UnitTest
 {
 public:
@@ -27,7 +27,7 @@ public:
       getMoves_slideToCapture();
 
       getType();
-      
+
       report("Rook");
    }
 private:

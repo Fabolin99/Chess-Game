@@ -2,7 +2,7 @@
  * Source File:
  *    TEST PAWN
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for the pawn
  ************************************************************************/
@@ -12,7 +12,6 @@
 #include "board.h"
 #include "uiDraw.h"
 #include <cassert>      
-
 
 
  /*************************************
@@ -34,7 +33,23 @@
   **************************************/
 void TestPawn::getMoves_simpleWhite()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+   // SETUP
+   BoardEmpty board;
+   Pawn pawn(1, 3, true /*white*/);
+   pawn.fWhite = true;
+   pawn.position.set(1, 3);
+   board.board[1][3] = &pawn;
+   set <Move> moves;
+
+   // EXERCISE
+   pawn.getMoves(moves, board);
+
+   // VERIFY
+   assertUnit(moves.size() == 1); // only one possible move
+   assertUnit(moves.begin()->getDes() == Position(1, 4)); // move to b5
+
+   // TEARDOWN
+   board.board[1][3] = nullptr; // white pawn
 }
 
 /*************************************
@@ -56,7 +71,23 @@ void TestPawn::getMoves_simpleWhite()
  **************************************/
 void TestPawn::getMoves_simpleBlack()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+   // SETUP
+   BoardEmpty board;
+   Pawn pawn(1, 3, false /*black*/);
+   pawn.fWhite = false;
+   pawn.position.set(1, 3);
+   board.board[1][3] = &pawn;
+   set <Move> moves;
+
+   // EXERCISE
+   pawn.getMoves(moves, board);
+
+   // VERIFY
+   assertUnit(moves.size() == 1); // only one possible move
+   assertUnit(moves.begin()->getDes() == Position(1, 2)); // move to b3
+
+   // TEARDOWN
+   board.board[1][3] = nullptr; // black pawn
 }
 
 
@@ -248,6 +279,11 @@ void TestPawn::getMoves_promotionBlack()
  **************************************/
 void TestPawn::getType()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
-}
+   // SETUP
+   Pawn pawn(0, 0, true);
+   // EXERCISE
+   PieceType pt = pawn.getType();
+   // VERIFY
+   assertUnit(pt == PAWN);
+}  // TEARDOWN
 
