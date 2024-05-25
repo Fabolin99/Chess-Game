@@ -13,6 +13,11 @@
 #include "piece.h"
 #include "pieceSpace.h"
 #include "pieceKnight.h"
+#include "pieceKing.h"
+#include "pieceQueen.h"
+#include "pieceRook.h"
+#include "piecePawn.h"
+#include "pieceBishop.h"
 #include <cassert>
 #include <vector>
 #include <algorithm>
@@ -37,29 +42,52 @@ using namespace std;
  ***********************************************/
 void Board::reset(bool fFree)
 {
-    // free everything
-    if (fFree)
-    {
-        free();
-    }
+   // free everything
+   if (fFree)
+   {
+      free(); 
+   }
 
-    // put the knights into the right spots
-    board[1][7] = new Knight(1, 7, false /*isWhite*/);              // left  black knight (col: 1, row: 7)
-    board[6][7] = new Knight(6, 7, false /*isWhite*/);              // right black knight (col: 6, row: 7)
-    board[1][0] = new Knight(1, 0, true  /*isWhite*/);              // left  white knight (col: 1, row: 0)
-    board[6][0] = new Knight(6, 0, true  /*isWhite*/);              // right white knight (col: 6, row: 0)
+   // put the kings into the right spots
+   board[4][7] = new King  (4, 7, false /*isWhite*/);              // black king         (col: 4, row: 7)
+   board[4][0] = new King  (4, 0, true  /*isWhite*/);              // white king         (col: 4, row: 0)
+   // put the queens into the right spots
+   board[3][7] = new Queen (3, 7, false /*isWhite*/);              // black queen        (col: 3, row: 7)
+   board[3][0] = new Queen (3, 0, true  /*isWhite*/);              // white queen        (col: 3, row: 0)
+   // put the knights into the right spots
+   board[1][7] = new Knight(1, 7, false /*isWhite*/);              // left  black knight (col: 1, row: 7)
+   board[6][7] = new Knight(6, 7, false /*isWhite*/);              // right black knight (col: 6, row: 7)
+   board[1][0] = new Knight(1, 0, true  /*isWhite*/);              // left  white knight (col: 1, row: 0)
+   board[6][0] = new Knight(6, 0, true  /*isWhite*/);              // right white knight (col: 6, row: 0)
+   // put the rooks into the right spots
+   board[0][7] = new Rook  (0, 7, false /*isWhite*/);              // left  black rook   (col: 0, row: 7)
+   board[7][7] = new Rook  (7, 7, false /*isWhite*/);              // right black rook   (col: 7, row: 7)
+   board[0][0] = new Rook  (0, 0, true  /*isWhite*/);              // left  white rook   (col: 0, row: 0)
+   board[7][0] = new Rook  (7, 0, true  /*isWhite*/);              // right white rook   (col: 7, row: 0)
+   // put the bishops into the right spots
+   board[2][7] = new Bishop(2, 7, false /*isWhite*/);              // left  black bishop (col: 2, row: 7)
+   board[5][7] = new Bishop(5, 7, false /*isWhite*/);              // right black bishop (col: 5, row: 7)
+   board[2][0] = new Bishop(2, 0, true  /*isWhite*/);              // left  white bishop (col: 2, row: 0)
+   board[5][0] = new Bishop(5, 0, true  /*isWhite*/);              // right white bishop (col: 5, row: 0)
+   // put the pawns into the right spots
+   for (int col = 0; col < 8; col++)
+   {
+      board[col][6] = new Pawn(col, 6, false /*isWhite*/);         // black pawns on row 6
+      board[col][1] = new Pawn(col, 1, true  /*isWhite*/);         // white pawns on row 1
+   }
 
-    // fill in spaces
-    for (int col = 0; col < 8; col++)
-    {
-        for (int row = 0; row < 8; row++)
-        {
-            if (board[col][row] == nullptr)
-            {
-                board[col][row] = new Space(col, row);
-            }
-        }
-    }
+                                                                   
+   // fill in spaces
+   for (int c = 0; c < 8; c++)
+   {
+      for (int r = 0; r < 8; r++)
+      {
+         if (board[c][r] == nullptr)
+         {
+            board[c][r] = new Space(c, r);
+         }
+      }
+   }
 }
 
 // we really REALLY need to delete this.
@@ -84,20 +112,21 @@ Piece& Board::operator [] (const Position& pos)
 ***********************************************/
 void Board::display() const
 {
-    // draw the squares
-    pgout->drawBoard();
+   // draw the squares
+   pgout->drawBoard();
 
-    // draw pieces
-    for (int col = 0; col < 8; col++)
-    {
-        for (int row = 0; row < 8; row++)
-        {
-            if (board[col][row]->getType() != SPACE)
-                board[col][row]->display(pgout);            // call the display method of the piece         
-        }
-    }
+   // draw pieces
+   for (int c = 0; c < 8; c++)
+   {
+      for (int r = 0; r < 8; r++)
+      {
+         if (board[c][r]->getType() != SPACE)
+         {
+            board[c][r]->display(pgout);            // call the display method of the piece 
+         }
+      }
+   }
 }
-
 
 /************************************************
  * BOARD : CONSTRUCT
@@ -105,15 +134,18 @@ void Board::display() const
  ************************************************/
 Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
 {
+   // set all the squares to nullptr
+   for (int r = 0; r < 8; r++)
+   {
+      for (int c = 0; c < 8; c++)
+      {
+         board[c][r] = nullptr;
+      }
+   }
 
-    // set all the squares to nullptr
-    for (int r = 0; r < 8; r++)
-        for (int c = 0; c < 8; c++)
-            board[c][r] = nullptr;
-    // reset board
-    reset();
+   // reset board
+   reset();
 }
-
 
 /************************************************
  * BOARD : FREE
@@ -121,14 +153,14 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
  ************************************************/
 void Board::free()
 {
-    for (auto& row : board)
-    {
-        for (auto& piece : row)
-        {
-            delete piece;
-            piece = nullptr;
-        }
-    }
+   for (auto& row : board)
+   {
+      for (auto& piece : row)
+      {
+         delete piece;
+         piece = nullptr;
+      }
+   }
 }
 
 /**********************************************
@@ -137,14 +169,19 @@ void Board::free()
  *********************************************/
 void Board::assertBoard()
 {
-    int pieceNum = 0;
-    for (int r = 0; r < 8; r++)
-        for (int c = 0; c < 8; c++)
-            if (board[c][r] != nullptr)
-                pieceNum++;
-    assert(pieceNum == 64);
+   int pieceNum = 0;
+   for (int r = 0; r < 8; r++)
+   {
+      for (int c = 0; c < 8; c++)
+      {
+         if (board[c][r] != nullptr)
+         {
+            pieceNum++;
+         }
+      }
+   }
+   assert(pieceNum == 64);
 }
-
 
 /**********************************************
  * BOARD : MOVE
@@ -153,27 +190,64 @@ void Board::assertBoard()
  *********************************************/
 void Board::move(const Move& move)
 {
-    // Check if the source and destination positions are valid
-    if (!move.getSrc().isValid() || !move.getDes().isValid())
-        return;
+   // Check if the source and destination positions are valid
+   if (!move.getSrc().isValid() || !move.getDes().isValid())
+   {
+      return;
+   }
+   // Deal with special moves
+   // Check if it is an enpassant move
+   if (move.isEnpassant())
+   {
+      board[move.getDes().getCol()][move.getSrc().getRow()] = new Space(move.getDes().getCol(), move.getSrc().getRow());
+   }
+   // Check if there is a promotion
+   else if (move.getPromotion() != SPACE)
+   {
+      if (move.getPromotion() == QUEEN)
+      {
+         board[move.getSrc().getCol()][move.getSrc().getRow()] = new Queen(move.getSrc().getCol(), move.getSrc().getRow(), move.getIsWhite());
+      }
+      else if (move.getPromotion() == ROOK)
+      {
+         board[move.getSrc().getCol()][move.getSrc().getRow()] = new Rook(move.getSrc().getCol(), move.getSrc().getRow(), move.getIsWhite());
+      }
+      else if (move.getPromotion() == BISHOP)
+      {
+         board[move.getSrc().getCol()][move.getSrc().getRow()] = new Bishop(move.getSrc().getCol(), move.getSrc().getRow(), move.getIsWhite());
+      }
+      else if (move.getPromotion() == KNIGHT)
+      {
+         board[move.getSrc().getCol()][move.getSrc().getRow()] = new Knight(move.getSrc().getCol(), move.getSrc().getRow(), move.getIsWhite());
+      }
+   }
+   else if (move.getCastleK())
+   {
+      board[5][move.getSrc().getRow()] = board[7][move.getSrc().getRow()];
+      board[7][move.getSrc().getRow()] = new Space(7, move.getSrc().getRow());
+   }
+   else if (move.getCastleQ())
+   {
+      board[3][move.getSrc().getRow()] = board[0][move.getSrc().getRow()];
+      board[0][move.getSrc().getRow()] = new Space(0, move.getSrc().getRow());
+   }
+   // Check if there is a capture piece
+   else if (move.getCapture() != SPACE || move.getCapture() != INVALID)
+   {
+      board[move.getDes().getCol()][move.getDes().getRow()] = new Space(move.getDes().getCol(), move.getDes().getRow());
+   }
 
-    // Check if there is a capture piece
-    if (move.getCapture() != SPACE || move.getCapture() != INVALID)
-    {
-        board[move.getDes().getCol()][move.getDes().getRow()] = new Space(move.getDes().getCol(), move.getDes().getRow());
-    }
+   // Get the piece at the source position
+   Piece* piece = board[move.getSrc().getCol()][move.getSrc().getRow()];
 
-    // Get the piece at the source position
-    Piece* piece = board[move.getSrc().getCol()][move.getSrc().getRow()];
+   // Set the source position to a space
+   board[move.getSrc().getCol()][move.getSrc().getRow()] = board[move.getDes().getCol()][move.getDes().getRow()];
 
-    // Set the source position to a space
-    board[move.getSrc().getCol()][move.getSrc().getRow()] = board[move.getDes().getCol()][move.getDes().getRow()];
+   // Move the piece to the destination position
+   board[move.getDes().getCol()][move.getDes().getRow()] = piece;
 
-    // Move the piece to the destination position
-    board[move.getDes().getCol()][move.getDes().getRow()] = piece;
-
-    // Increment the number of moves
-    numMoves++;
+   // Increment the number of moves
+   numMoves++;
 }
 
 /**********************************************

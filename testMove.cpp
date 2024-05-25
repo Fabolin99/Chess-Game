@@ -11,6 +11,9 @@
 #include "testMove.h"
 #include "move.h"
 #include <cassert>
+#include <iostream>
+
+using namespace std;
 
  /*************************************
   * Constructor : default
@@ -20,15 +23,13 @@
   **************************************/
 void TestMove::constructor_default()
 {
-	// Setup
+	// SETUP
+	// EXERCISE
 	Move move;
-
-	// Exercise is not necessary on this test.
-
 	// Verify
 	assertUnit(move.source == INVALID);
 	assertUnit(move.dest == INVALID);
-}
+}  // TEARDOWN
 
  /*************************************
   * CONSTRUCTOR : standard string move
@@ -39,17 +40,14 @@ void TestMove::constructor_default()
   **************************************/
 void TestMove::constructString_simple()
 {
-	// Set up a Move object using the string constructor
+	// SETUP
+	// EXERCISE
 	Move move("e5e6");
-
-	// Verify that the source and destination positions are correct
+	// VERIFY
 	assertUnit(move.source.colRow == 0x44);
 	assertUnit(move.dest.colRow == 0x45); 
-
-	// Verify that the move type is MOVE
 	assertUnit(move.moveType == Move::MOVE);
-}// teardown
-
+}	// TEARDOWN
 
  /*************************************
   * READ simple move 
@@ -60,16 +58,14 @@ void TestMove::constructString_simple()
   **************************************/
 void TestMove::read_simple()
 {
-	// Set up a Move object using the string constructor
+	// SETUP
+	// EXERCISE
 	Move move("e5d6");
-
-	// Verify that the source and destination positions are correct
+	// VERIFY
 	assertUnit(move.source.colRow == 0x44);
 	assertUnit(move.dest.colRow == 0x35);// 'd' corresponds to column 3
-
-	// Verify that the move type is MOVE
 	assertUnit(move.moveType == Move::MOVE);
-}// teardown
+}  // TEARDOWN
 
  /*************************************
   * READ capture move 
@@ -81,17 +77,15 @@ void TestMove::read_simple()
   **************************************/
 void TestMove::read_capture()
 {
-	// Setup 
+	// SETUP
+	// EXERCISE
 	Move move("e5d6r");
-
-	// Verify 
+	// VERIFY 
 	assertUnit(move.source.colRow == 0x44);
 	assertUnit(move.dest.colRow == 0x35);// 'd' corresponds to column 
-
 	assertUnit(move.moveType == Move::MOVE);
 	assertUnit(move.capture == ROOK);
-
-}// Teardowm
+}  // TEARDOWN
 
  /*************************************
   * READ enpassant move 
@@ -102,16 +96,15 @@ void TestMove::read_capture()
   **************************************/
 void TestMove::read_enpassant()
 {
-	// Setup
+	// SETUP
 	Move move;
+	// EXERCISE
 	bool success = move.assign("e5d6E");
-
-	// Verify that the assign method returned true
+	// VERIFY
 	assertUnit(move.source.colRow == 0x44);
 	assertUnit(move.dest.colRow == 0x35);// 'd' corresponds to column 3
-
 	assertUnit(move.moveType == Move::ENPASSANT);
-}// Teardowm
+}  // TEARDOWN
 
  /*************************************
   * READ king side castle
@@ -122,20 +115,15 @@ void TestMove::read_enpassant()
   **************************************/
 void TestMove::read_castleKing()
 {
-	// Set up a Move object using the default constructor
+	// SETUP
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e1g1c");
-
-	// verify
+	// VERIFY
 	assertUnit(move.source.colRow == 0x40);
 	assertUnit(move.dest.colRow == 0x60);
-
 	assertUnit(move.moveType == Move::CASTLE_KING);
-
-}// Teardowm
-
+}  // TEARDOWN
 
  /*************************************
   * READ queen side castle
@@ -146,19 +134,16 @@ void TestMove::read_castleKing()
   **************************************/
 void TestMove::read_castleQueen()
 {
-	// Set up a Move object using the default constructor
+	// SETUP
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e1c1C");
-
-	// Verify 
+	// VERIFY 
 	assertUnit(success == true);
 	assertUnit(move.source.colRow == 0x40);
 	assertUnit(move.dest.colRow == 0x20);
-
 	assertUnit(move.moveType == Move::CASTLE_QUEEN);
-}// teardown
+}  // TEARDOWN
 
  /*************************************
   * ASSIGN simple move
@@ -169,20 +154,16 @@ void TestMove::read_castleQueen()
   **************************************/
 void TestMove::assign_simple()
 {
-	// Set up 
+	// SETUP
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e5e6");
-
-	// Verify 
+	// VERIFY 
 	assertUnit(success == true);
-
 	assertUnit(move.source.colRow == 0x44);// 'e' corresponds to column 4
 	assertUnit(move.dest.colRow == 0x45);
-
 	assertUnit(move.moveType == Move::MOVE); 
-} //teardown
+}  // TEARDOWN
 
  /*************************************
   * ASSIGN capture move
@@ -194,20 +175,17 @@ void TestMove::assign_simple()
   **************************************/
 void TestMove::assign_capture()
 {
-	// Set up 
+	// SETUP 
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e5d6r");
-
-	// Verify 
+	// VERIFY 
 	assertUnit(success == true);
 	assertUnit(move.source.colRow == 0x44);
 	assertUnit(move.dest.colRow == 0x35);
-
 	assertUnit(move.moveType == Move::MOVE);
 	assertUnit(move.capture == ROOK);
-}// teardown
+}  // TEARDOWN
 
  /*************************************
   * ASSIGN enpassant move
@@ -218,21 +196,16 @@ void TestMove::assign_capture()
   **************************************/
 void TestMove::assign_enpassant()
 {
-	// Set up 
+	// SETUP
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e5d6E");
-
-	// Verify 
+	// VERIFY 
 	assertUnit(success == true);
-
 	assertUnit(move.source.colRow == 0x44);
 	assertUnit(move.dest.colRow == 0x35);
-
 	assertUnit(move.moveType == Move::ENPASSANT);
-}// teardown
-
+} // TEARDOWN
 
  /*************************************
   * ASSIGN king side castle
@@ -243,20 +216,16 @@ void TestMove::assign_enpassant()
   **************************************/
 void TestMove::assign_castleKing()
 {
-	// Set up 
+	// SETUP 
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e1g1c");
-
-	// Verify 
+	// VERIFY 
 	assertUnit(success == true);
-
 	assertUnit(move.source.colRow == 0x40);
 	assertUnit(move.dest.colRow == 0x60);
-
 	assertUnit(move.moveType == Move::CASTLE_KING);
-}// teardown
+}  // TEARDOWN
 
  /*************************************
   * ASSIGN queen side castle
@@ -267,20 +236,16 @@ void TestMove::assign_castleKing()
   **************************************/
 void TestMove::assign_castleQueen()
 {
-	// Set up 
+	// SETUP 
 	Move move;
-
-	// exercise
+	// EXERCISE
 	bool success = move.assign("e1c1C"); 
-
-	// Verify 
+	// VERIFY 
 	assertUnit(success == true);
-
 	assertUnit(move.source.colRow == 0x40);
 	assertUnit(move.dest.colRow == 0x20);
-
 	assertUnit(move.moveType == Move::CASTLE_QUEEN);
-}// teardown
+}  // TEARDOWN
 
  /*************************************
   * GET TEXT simple move
@@ -290,7 +255,7 @@ void TestMove::assign_castleQueen()
   * Output: e5e6
   **************************************/
 void TestMove::getText_simple()
-{   // SETUP
+{  // SETUP
 	Move move;
 	move.source.colRow = 0x44;
 	move.dest.colRow = 0x45;
@@ -304,7 +269,7 @@ void TestMove::getText_simple()
 	assertUnit(move.moveType == Move::MOVE);
 	assertUnit(move.capture == INVALID);
 	assertUnit(output == "e5e6");
-}   // TEARDOWN
+}  // TEARDOWN
 
 /*************************************
   * GET TEXT capture
@@ -315,7 +280,7 @@ void TestMove::getText_simple()
   * Output: e5e6r
   **************************************/
 void TestMove::getText_capture()
-{   // SETUP
+{  // SETUP
 	Move move;
 	move.source.colRow = 0x44;
 	move.dest.colRow = 0x45;
@@ -329,7 +294,7 @@ void TestMove::getText_capture()
 	assertUnit(move.moveType == Move::MOVE);
 	assertUnit(move.capture == ROOK);
 	assertUnit(output == "e5e6r");
-}   // TEARDOWN
+}  // TEARDOWN
 
 /*************************************
   * GET TEXT en passant
@@ -340,7 +305,7 @@ void TestMove::getText_capture()
   * Output: e5f6E
   **************************************/
 void TestMove::getText_enpassant()
-{   // SETUP
+{  // SETUP
 	Move move;
 	move.source.colRow = 0x44;
 	move.dest.colRow = 0x55;
@@ -354,7 +319,8 @@ void TestMove::getText_enpassant()
 	assertUnit(move.moveType == Move::ENPASSANT);
 	assertUnit(move.capture == PAWN);
 	assertUnit(output == "e5f6E");
-}   // TEARDOWN
+}  // TEARDOWN
+
 /*************************************
   * GET TEXT king side castle
   * Input : source=4,0
@@ -363,7 +329,7 @@ void TestMove::getText_enpassant()
   * Output: e1g1c
   **************************************/
 void TestMove::getText_castleKing()
-{   // SETUP
+{  // SETUP
 	Move move;
 	move.source.colRow = 0x40;
 	move.dest.colRow = 0x60;
@@ -387,7 +353,7 @@ void TestMove::getText_castleKing()
   * Output: e1c1C
   **************************************/
 void TestMove::getText_castleQueen()
-{   // SETUP
+{  // SETUP
 	Move move;
 	move.source.colRow = 0x40;
 	move.dest.colRow = 0x20;
@@ -409,18 +375,14 @@ void TestMove::getText_castleQueen()
   * Output:  ' '
   **************************************/
 void TestMove::letterFromPieceType_space()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = ' ';
-	
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(SPACE);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LETTER FROM PIECE TYPE pawn
@@ -428,18 +390,14 @@ void TestMove::letterFromPieceType_space()
   * Output:  'p'
   **************************************/
 void TestMove::letterFromPieceType_pawn()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = 'p';
-
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(PAWN);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LETTER FROM PIECE TYPE bishop
@@ -447,18 +405,14 @@ void TestMove::letterFromPieceType_pawn()
   * Output:  'b'
   **************************************/
 void TestMove::letterFromPieceType_bishop()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = 'b';
-
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(BISHOP);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LETTER FROM PIECE TYPE knight
@@ -466,18 +420,14 @@ void TestMove::letterFromPieceType_bishop()
   * Output:  'n'
   **************************************/
 void TestMove::letterFromPieceType_knight()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = 'n';
-
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(KNIGHT);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LETTER FROM PIECE TYPE rook
@@ -485,18 +435,14 @@ void TestMove::letterFromPieceType_knight()
   * Output:  'r'
   **************************************/
 void TestMove::letterFromPieceType_rook()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = 'r';
-
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(ROOK);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LETTER FROM PIECE TYPE queen
@@ -504,18 +450,14 @@ void TestMove::letterFromPieceType_rook()
   * Output:  'q'
   **************************************/
 void TestMove::letterFromPieceType_queen()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = 'q';
-
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(QUEEN);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LETTER FROM PIECE TYPE king
@@ -523,18 +465,14 @@ void TestMove::letterFromPieceType_queen()
   * Output:  'k'
   **************************************/
 void TestMove::letterFromPieceType_king()
-{
-	// setup
+{  // SETUP
 	Move move;
 	char expected = 'k';
-
-	//exercise
+	// EXERCISE
 	char actual = move.letterFromPieceType(KING);
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * PIECE TYPE FROM LETTER pawn
@@ -542,18 +480,14 @@ void TestMove::letterFromPieceType_king()
   * Output:  PAWN
   **************************************/
 void TestMove::pieceTypeFromLetter_pawn()
-{
-	// setup
+{  // SETUP
 	Move move;
 	PieceType expected = PAWN;
-
-	//exercise
+	// EXERCISE
 	char actual = move.pieceTypeFromLetter('p');
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * PIECE TYPE FROM LETTER bishop
@@ -561,18 +495,14 @@ void TestMove::pieceTypeFromLetter_pawn()
   * Output:  BISHOP
   **************************************/
 void TestMove::pieceTypeFromLetter_bishop()
-{
-	// setup
+{  // SETUP
 	Move move;
 	PieceType expected = BISHOP;
-
-	//exercise
+	// EXERCISE
 	char actual = move.pieceTypeFromLetter('b');
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * PIECE TYPE FROM LETTER knight
@@ -580,18 +510,14 @@ void TestMove::pieceTypeFromLetter_bishop()
   * Output: KNIGHT
   **************************************/
 void TestMove::pieceTypeFromLetter_knight()
-{
-	// setup
+{  // SETUP
 	Move move;
 	PieceType expected = KNIGHT;
-
-	//exercise
+	// EXERCISE
 	char actual = move.pieceTypeFromLetter('n');
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * PIECE TYPE FROM LETTER rook
@@ -599,18 +525,14 @@ void TestMove::pieceTypeFromLetter_knight()
   * Output: ROOK
   **************************************/
 void TestMove::pieceTypeFromLetter_rook()
-{
-	// setup
+{  // SETUP
 	Move move;
 	PieceType expected = ROOK;
-
-	//exercise
+	// EXERCISE
 	char actual = move.pieceTypeFromLetter('r');
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * PIECE TYPE FROM LETTER queen
@@ -618,18 +540,14 @@ void TestMove::pieceTypeFromLetter_rook()
   * Output: QUEEN
   **************************************/
 void TestMove::pieceTypeFromLetter_queen()
-{
-	// setup
+{  // SETUP
 	Move move;
 	PieceType expected = QUEEN;
-
-	//exercise
+	// EXERCISE
 	char actual = move.pieceTypeFromLetter('q');
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * PIECE TYPE FROM LETTER king
@@ -637,19 +555,14 @@ void TestMove::pieceTypeFromLetter_queen()
   * Output: KING
   **************************************/
 void TestMove::pieceTypeFromLetter_king() 
-{
-	// setup
+{  // SETUP
 	Move move;
 	PieceType expected = KING;
-
-	//exercise
+	// EXERCISE
 	char actual = move.pieceTypeFromLetter('k');
-
-	// verify
+	// VERIFY
 	assertUnit(expected == actual);
-	//teardown
-}
-
+}  // TEARDOWN
 
 /*************************************
  * EQUAL - NOT
@@ -657,17 +570,13 @@ void TestMove::pieceTypeFromLetter_king()
  * Output: false
  **************************************/
 void TestMove::equal_not()
-{
-	//setup
+{  // SETUP
 	Move move1("b2b4");
 	Move move2("b2b5");
-	
-	// no exercise for this
-
-	// verify
+	// EXERCISE
+	// VERIFY
 	assertUnit(!(move1 == move2));
-	//teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * EQUAL - EQUALS
@@ -675,18 +584,13 @@ void TestMove::equal_not()
   * Output: false
   **************************************/
 void TestMove::equal_equals()
-{
-	//setup
+{  // SETUP
 	Move move1("b2b4");
 	Move move2("b2b4");
-
-	// no exercise for this
-
-	// verify
+	// EXERCISE
+	// VERIFY
 	assertUnit(move1 == move2);
-	//teardown
-}
-
+}  // TEARDOWN
 
  /*************************************
   * LESS THAN - LESS THAN
@@ -694,17 +598,13 @@ void TestMove::equal_equals()
   * Output: true
   **************************************/
 void TestMove::lessthan_lessthan()
-{
-	// setup
+{  // SETUP
 	Move move1("b2b2");
 	Move move2("b2b4");
-
-	// no exercise for this
-
-	//verify
+	// EXERCISE
+	// VERIFY
 	assertUnit(move1 < move2);
-	// teardown
-}
+}  // TEARDOWN
 
  /*************************************
   * LESS THAN - EQUALS
@@ -712,18 +612,13 @@ void TestMove::lessthan_lessthan()
   * Output: false
   **************************************/
 void TestMove::lessthan_equals()
-{
-	// setup
+{  // SETUP
 	Move move1("b2b4");
 	Move move2("b2b4");
-
-	// no exercise for this
-
-	//verify
+	// EXERCISE
+	// VERIFY
 	assertUnit(!(move1 < move2));
-	// teardown
-}
-
+}  // TEARDOWN
 
  /*************************************
   * LESS THAN - GREATAER THAN
@@ -731,14 +626,10 @@ void TestMove::lessthan_equals()
   * Output: false
   **************************************/
 void TestMove::lessthan_greaterthan()
-{
-	// setup
+{  // SETUP
 	Move move1("b2b4");
 	Move move2("b2b2");
-
-	// no exercise for this
-
-	//verify
+	// EXERCISE
+	// VERIFY
 	assertUnit(!(move1 < move2));
-	// teardown
-}
+}  // TEARDOWN

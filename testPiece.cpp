@@ -2,18 +2,16 @@
  * Source File:
  *    TEST PIECE
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for a piece base class
  ************************************************************************/
-
 
 #include "testPiece.h"
 #include "piece.h"     
 #include "board.h"
 #include "uiDraw.h"
 #include <cassert>      
-
 
  /*************************************
   * ASSIGNMENT
@@ -22,7 +20,7 @@
   * output:lhs.fWhite=true  .lastMove=3 .nMoves=1
   **************************************/
 void TestPiece::assignment()
-{  // setup
+{  // SETUP
    PieceDerived lhs(0,0,true);
    lhs.fWhite = false;
    lhs.lastMove = 6;
@@ -31,16 +29,16 @@ void TestPiece::assignment()
    rhs.fWhite = true;
    rhs.lastMove = 3;
    rhs.nMoves = 1;
-   // exercise
+   // EXERCISE
    lhs = rhs;
-   // verify
+   // VERIFY
    assertUnit(lhs.fWhite == true);
    assertUnit(lhs.lastMove == 3);
    assertUnit(lhs.nMoves == 1);
    assertUnit(rhs.fWhite == true);
    assertUnit(rhs.lastMove == 3);
    assertUnit(rhs.nMoves == 1);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * EQUALS : space equals space
@@ -49,7 +47,7 @@ void TestPiece::assignment()
   * output:true
   **************************************/
 void TestPiece::equals_same()
-{  // setup
+{  // SETUP
    PieceDerived lhs(0, 0, true);
    lhs.fWhite = false;
    lhs.lastMove = 6;
@@ -57,14 +55,14 @@ void TestPiece::equals_same()
    lhs.position = Position(2, 3);
    bool isSame = false;
    PieceType rhs = SPACE;
-   // exercise
+   // EXERCISE
    isSame = lhs == rhs;
-   // verify
+   // VERIFY
    assertUnit(isSame == true);
    assertUnit(lhs.fWhite == false);
    assertUnit(lhs.lastMove == 6);
    assertUnit(lhs.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * EQUALS : space not equals rook
@@ -73,7 +71,7 @@ void TestPiece::equals_same()
   * output:true
   **************************************/
 void TestPiece::equals_different()
-{  // setup
+{  // SETUP
    PieceDerived lhs(0, 0, true);
    lhs.fWhite = false;
    lhs.lastMove = 6;
@@ -81,14 +79,14 @@ void TestPiece::equals_different()
    lhs.position = Position(2, 3);
    bool isSame = true;
    PieceType rhs = ROOK;
-   // exercise
+   // EXERCISE
    isSame = lhs == rhs;
-   // verify
+   // VERIFY
    assertUnit(isSame == false);
    assertUnit(lhs.fWhite == false);
    assertUnit(lhs.lastMove == 6);
    assertUnit(lhs.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * NOT EQUALS : space equals space
@@ -97,7 +95,7 @@ void TestPiece::equals_different()
   * output:false
   **************************************/
 void TestPiece::notEquals_same()
-{  // setup
+{  // SETUP
    PieceDerived lhs(0, 0, true);
    lhs.fWhite = false;
    lhs.lastMove = 6;
@@ -105,14 +103,14 @@ void TestPiece::notEquals_same()
    lhs.position = Position(2, 3);
    bool isSame = true;
    PieceType rhs = SPACE;
-   // exercise
+   // EXERCISE
    isSame = lhs != rhs;
-   // verify
+   // VERIFY
    assertUnit(isSame == false);
    assertUnit(lhs.fWhite == false);
    assertUnit(lhs.lastMove == 6);
    assertUnit(lhs.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * NOT EQUALS : space not equals rook
@@ -121,7 +119,7 @@ void TestPiece::notEquals_same()
   * output:true
   **************************************/
 void TestPiece::notEquals_different()
-{  // setup
+{  // SETUP
    PieceDerived lhs(0, 0, true);
    lhs.fWhite = false;
    lhs.lastMove = 6;
@@ -129,14 +127,14 @@ void TestPiece::notEquals_different()
    lhs.position = Position(2, 3);
    bool isSame = false;
    PieceType rhs = ROOK;
-   // exercise
+   // EXERCISE
    isSame = lhs != rhs;
-   // verify
+   // VERIFY
    assertUnit(isSame == true);
    assertUnit(lhs.fWhite == false);
    assertUnit(lhs.lastMove == 6);
    assertUnit(lhs.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * IS WHITE : white
@@ -144,21 +142,21 @@ void TestPiece::notEquals_different()
   * output:true
   **************************************/
 void TestPiece::isWhite_white()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = true;
    piece.lastMove = 6;
    piece.nMoves = 2;
    piece.position = Position(2, 3);
    bool isWhite = false;
-   // exercise
+   // EXERCISE
    isWhite = piece.isWhite();
-   // verify
+   // VERIFY
    assertUnit(isWhite == true);
    assertUnit(piece.fWhite == true);
    assertUnit(piece.lastMove == 6);
    assertUnit(piece.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * IS WHITE : black
@@ -166,21 +164,21 @@ void TestPiece::isWhite_white()
   * output:false
   **************************************/
 void TestPiece::isWhite_black()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 6;
    piece.nMoves = 2;
    piece.position = Position(2, 3);
    bool isWhite = true;
-   // exercise
+   // EXERCISE
    isWhite = piece.isWhite();
-   // verify
+   // VERIFY
    assertUnit(isWhite == false);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 6);
    assertUnit(piece.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * IS MOVED : inital when not moved
@@ -188,21 +186,21 @@ void TestPiece::isWhite_black()
   * output:false
   **************************************/
 void TestPiece::isMoved_initial()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 0;
    piece.nMoves = 0;
    piece.position = Position(2, 3);
    bool isMoved = true;
-   // exercise
+   // EXERCISE
    isMoved = piece.isMoved();
-   // verify
+   // VERIFY
    assertUnit(isMoved == false);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 0);
    assertUnit(piece.nMoves == 0);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * IS MOVED : has moved twice
@@ -210,21 +208,21 @@ void TestPiece::isMoved_initial()
   * output:true
   **************************************/
 void TestPiece::isMoved_hasMoved()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 1;
    piece.nMoves = 2;
    piece.position = Position(2, 3);
    bool isMoved = false;
-   // exercise
+   // EXERCISE
    isMoved = piece.isMoved();
-   // verify
+   // VERIFY
    assertUnit(isMoved == true);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 1);
    assertUnit(piece.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * GET NUMBER MOVES : inital when not moved
@@ -232,21 +230,21 @@ void TestPiece::isMoved_hasMoved()
   * output:0
   **************************************/
 void TestPiece::getNMoves_initial()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 0;
    piece.nMoves = 0;
    piece.position = Position(2, 3);
    int nMoves = 9;
-   // exercise
+   // EXERCISE
    nMoves = piece.getNMoves();
-   // verify
+   // VERIFY
    assertUnit(nMoves == 0);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 0);
    assertUnit(piece.nMoves == 0);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * GET NUMBER MOVES : has moved twice
@@ -254,22 +252,21 @@ void TestPiece::getNMoves_initial()
   * output:2
   **************************************/
 void TestPiece::getNMoves_hasMoved()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 1;
    piece.nMoves = 2;
    piece.position = Position(2, 3);
    int nMoves = 9;
-   // exercise
+   // EXERCISE
    nMoves = piece.getNMoves();
-   // verify
+   // VERIFY
    assertUnit(nMoves == 2);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 1);
    assertUnit(piece.nMoves == 2);
-}  // teardown
-
+}  // TEARDOWN
 
  /*************************************
   * GET POSITION
@@ -277,21 +274,21 @@ void TestPiece::getNMoves_hasMoved()
   * output:pos(2,3)
   **************************************/
 void TestPiece::getPosition()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 1;
    piece.nMoves = 2;
    piece.position = Position(2,3);
    Position pos;
-   // exercise
+   // EXERCISE
    pos = piece.getPosition();
-   // verify
+   // VERIFY
    assertUnit(pos == Position(2,3));
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 1);
    assertUnit(piece.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * JUST MOVED : initial position of the piece
@@ -300,7 +297,7 @@ void TestPiece::getPosition()
   * output:false
   **************************************/
 void TestPiece::justMoved_initial()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 0;
@@ -308,14 +305,14 @@ void TestPiece::justMoved_initial()
    piece.position = Position(2, 3);
    int currentMove = 7;
    bool justMoved = true;
-   // exercise
+   // EXERCISE
    justMoved = piece.justMoved(currentMove);
-   // verify
+   // VERIFY
    assertUnit(justMoved == false);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 0);
    assertUnit(piece.nMoves == 0);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * JUST MOVED : moved a few times
@@ -324,7 +321,7 @@ void TestPiece::justMoved_initial()
   * output:false
   **************************************/
 void TestPiece::justMoved_hasMoved()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 4;
@@ -332,14 +329,14 @@ void TestPiece::justMoved_hasMoved()
    piece.position = Position(2, 3);
    int currentMove = 7;
    bool justMoved = true;
-   // exercise
+   // EXERCISE
    justMoved = piece.justMoved(currentMove);
-   // verify
+   // VERIFY
    assertUnit(justMoved == false);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 4);
    assertUnit(piece.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * JUST MOVED : just moved
@@ -348,7 +345,7 @@ void TestPiece::justMoved_hasMoved()
   * output:true
   **************************************/
 void TestPiece::justMoved_justMoved()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 4;
@@ -356,14 +353,14 @@ void TestPiece::justMoved_justMoved()
    piece.position = Position(2, 3);
    int currentMove = 5;
    bool justMoved = false;
-   // exercise
+   // EXERCISE
    justMoved = piece.justMoved(currentMove);
-   // verify
+   // VERIFY
    assertUnit(justMoved == true);
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 4);
    assertUnit(piece.nMoves == 2);
-}  // teardown
+}  // TEARDOWN
 
  /*************************************
   * SET LAST MOVE
@@ -372,18 +369,18 @@ void TestPiece::justMoved_justMoved()
   * output: piece.fWhite=false .lastMove=6 .nMoves=3 .pos(2,3) .type=space
   **************************************/
 void TestPiece::setLastMove()
-{  // setup
+{  // SETUP
    PieceDerived piece(0, 0, true);
    piece.fWhite = false;
    piece.lastMove = 4;
    piece.nMoves = 2;
    piece.position = Position(2, 3);
    int currentMove = 6;
-   // exercise
+   // EXERCISE
    piece.setLastMove(currentMove);
-   // verify
+   // VERIFY
    assertUnit(piece.fWhite == false);
    assertUnit(piece.lastMove == 6);
    assertUnit(piece.nMoves == 3);
-}  // teardown
+}  // TEARDOWN
 

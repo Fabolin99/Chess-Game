@@ -2,7 +2,7 @@
  * Header File:
  *    TEST ROOK
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for the Rook
  ************************************************************************/
@@ -11,10 +11,10 @@
 
 #include "unitTest.h"
 
-/***************************************************
- * ROOK TEST
- * Test the Rook class
- ***************************************************/
+ /***************************************************
+  * ROOK TEST
+  * Test the Rook class
+  ***************************************************/
 class TestRook : public UnitTest
 {
 public:
@@ -27,7 +27,7 @@ public:
       getMoves_slideToCapture();
 
       getType();
-      
+
       report("Rook");
    }
 private:

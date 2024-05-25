@@ -98,7 +98,7 @@ void Position::setRow(int r)
 }
 
 /*************************************
- *  SET
+ *  SET WITH COLUMN AND ROW
  **************************************/
 void Position::set(int c, int r)
 {
@@ -144,7 +144,7 @@ Position& Position::operator +=(const Delta& rhs)
     return *this;
 }
 
-/*************************************
+/**************************************
  *  PLUS OPERATOR
  **************************************/
 Position Position::operator +(const Delta& rhs) const
@@ -152,6 +152,23 @@ Position Position::operator +(const Delta& rhs) const
     Position newPos(*this);
     newPos += rhs;
     return newPos;
+}
+
+/**************************************
+ *  SET WITH STRING
+ **************************************/
+void Position::set(const char* s)
+{
+   if (s[0] < 'a' || s[0] > 'h' || s[1] < '1' || s[1] > '8') 
+   {
+      colRow = 0xFF; // Invalid position
+   }
+   else 
+   {
+      int c = s[0] - 'a';
+      int r = s[1] - '1';
+      colRow = (c << 4) | r;
+   }
 }
 
 

@@ -2,7 +2,7 @@
 * Source File:
 *    Lab 04: Chess
 * Author:
-*    <your name here>
+*    Yat Lam, Josue Molina, and Fabian Diaz Santiago
 * Summary:
 *    Play the game of chess
 ************************************************************************/
@@ -20,7 +20,6 @@
 #include <string>         // for STRING
 using namespace std;
 
-
 /*************************************
  * All the interesting work happens here, when
  * I get called back from OpenGL to draw a frame.
@@ -36,7 +35,6 @@ void callBack(Interface *pUI, void * p)
    pBoard->display();
 }
 
-
 /*********************************
  * MAIN - Where it all begins...
  *********************************/
@@ -51,7 +49,6 @@ int WINAPI WinMain(
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
-
    // run all the unit tests
    testRunner();
    

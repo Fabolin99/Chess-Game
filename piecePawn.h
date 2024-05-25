@@ -1,10 +1,10 @@
 /***********************************************************************
  * Header File:
- *    KNIGHT
+ *    PAWN
  * Author:
  *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
- *    The KNIGHT class
+ *    The PAWN class
  ************************************************************************/
 
 #pragma once
@@ -12,16 +12,16 @@
 #include "piece.h"
 
  /***************************************************
-  * KNIGHT
-  * The knight, aka the "Horse"
+  * PAWN
+  * The pawn
   ***************************************************/
-class Knight : public Piece
+class Pawn : public Piece
 {
 public:
-   Knight(const Position& pos, bool isWhite) : Piece(pos, isWhite) { }
-   Knight(int c, int r, bool isWhite) : Piece(c, r, isWhite) { }
-   ~Knight() {                }
-   PieceType getType()            const { return KNIGHT; }
+   Pawn(const Position& pos, bool isWhite) : Piece(pos, isWhite) { }
+   Pawn(int c, int r, bool isWhite) : Piece(c, r, isWhite) { }
+   ~Pawn() {                }
+   PieceType getType()            const { return PAWN; }
    void getMoves(set <Move>& moves, const Board& board) const;
    void display(ogstream* pgout)  const;
 };

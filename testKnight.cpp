@@ -2,7 +2,7 @@
  * Source File:
  *    TEST KNIGHT
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for the knight
  ************************************************************************/
@@ -43,15 +43,12 @@ void TestKnight::getMoves_end()
 	White white(PAWN);
 	board.board[5][2] = &white;
 	set <Move> moves;
-
-	// EXERCISEd
+	// EXERCISE
 	knight.getMoves(moves, board);
-
 	// VERIFY
 	assertUnit(moves.size() == 2);		// many possible moves
 	assertUnit(moves.find(Move("g1e2p")) != moves.end());
 	assertUnit(moves.find(Move("g1h3")) != moves.end());
-
 	// TEARDOWN
 	board.board[6][0] = nullptr;			// white knight
 	board.board[4][1] = nullptr;			// black pawn
@@ -97,23 +94,20 @@ void TestKnight::getMoves_blocked()
 	White pawn8(PAWN);
 	board.board[2][6] = &pawn8;
 	set <Move> moves;
-
-	// EXERCISEd
+	// EXERCISE
 	knight.getMoves(moves, board);
-
 	// VERIFY
 	assertUnit(moves.size() == 0);		// many possible moves
-
 	// TEARDOWN
-	board.board[6][0] = nullptr;		// white knight
-	board.board[4][6] = nullptr;		// white pawn 1
-	board.board[5][5] = nullptr;		// white pawn 2
-	board.board[5][3] = nullptr;		// white pawn 3
-	board.board[4][2] = nullptr;		// white pawn 4
-	board.board[2][2] = nullptr;		// white pawn 5
-	board.board[1][3] = nullptr;		// white pawn 6
-	board.board[1][5] = nullptr;		// white pawn 7
-	board.board[2][6] = nullptr;		// white pawn 8
+	board.board[6][0] = nullptr;			// white knight
+	board.board[4][6] = nullptr;			// white pawn 1
+	board.board[5][5] = nullptr;			// white pawn 2
+	board.board[5][3] = nullptr;			// white pawn 3
+	board.board[4][2] = nullptr;			// white pawn 4
+	board.board[2][2] = nullptr;			// white pawn 5
+	board.board[1][3] = nullptr;			// white pawn 6
+	board.board[1][5] = nullptr;			// white pawn 7
+	board.board[2][6] = nullptr;			// white pawn 8
 }
 
 /*************************************
@@ -155,10 +149,8 @@ void TestKnight::getMoves_capture()
 	Black pawn8(PAWN);
 	board.board[2][6] = &pawn8;
 	set <Move> moves;
-
-	// EXERCISEd
+	// EXERCISE
 	knight.getMoves(moves, board);
-
 	// VERIFY
 	assertUnit(moves.size() == 8);		// many possible moves
 	assertUnit(moves.find(Move("d5e7P")) != moves.end());
@@ -169,17 +161,16 @@ void TestKnight::getMoves_capture()
 	assertUnit(moves.find(Move("d5b4P")) != moves.end());
 	assertUnit(moves.find(Move("d5b6P")) != moves.end());
 	assertUnit(moves.find(Move("d5c7P")) != moves.end());
-
 	// TEARDOWN
-	board.board[6][0] = nullptr;		// white knight
-	board.board[4][6] = nullptr;		// black pawn 1
-	board.board[5][5] = nullptr;		// black pawn 2
-	board.board[5][3] = nullptr;		// black pawn 3
-	board.board[4][2] = nullptr;		// black pawn 4
-	board.board[2][2] = nullptr;		// black pawn 5
-	board.board[1][3] = nullptr;		// black pawn 6
-	board.board[1][5] = nullptr;		// black pawn 7
-	board.board[2][6] = nullptr;		// black pawn 8
+	board.board[6][0] = nullptr;			// white knight
+	board.board[4][6] = nullptr;			// black pawn 1
+	board.board[5][5] = nullptr;			// black pawn 2
+	board.board[5][3] = nullptr;			// black pawn 3
+	board.board[4][2] = nullptr;			// black pawn 4
+	board.board[2][2] = nullptr;			// black pawn 5
+	board.board[1][3] = nullptr;			// black pawn 6
+	board.board[1][5] = nullptr;			// black pawn 7
+	board.board[2][6] = nullptr;			// black pawn 8
 }
 
 /*************************************
@@ -205,10 +196,8 @@ void TestKnight::getMoves_free()
 	knight.position.set(3, 4);
 	board.board[3][4] = &knight;
 	set <Move> moves;
-
-	// EXERCISEd
+	// EXERCISE
 	knight.getMoves(moves, board);
-
 	// VERIFY
 	assertUnit(moves.size() == 8);		// many possible moves
 	assertUnit(moves.find(Move("d5e7")) != moves.end());
@@ -219,9 +208,8 @@ void TestKnight::getMoves_free()
 	assertUnit(moves.find(Move("d5b4")) != moves.end());
 	assertUnit(moves.find(Move("d5b6")) != moves.end());
 	assertUnit(moves.find(Move("d5c7")) != moves.end());
-
 	// TEARDOWN
-	board.board[6][0] = nullptr;		// white knight
+	board.board[6][0] = nullptr;			// white knight
 }
 
 
@@ -232,10 +220,10 @@ void TestKnight::getMoves_free()
  * Output: KNIGHT
  **************************************/
 void TestKnight::getType()
-{   // SETUP
+{  // SETUP
 	Knight knight(0, 0, true);
 	// EXERCISE
 	PieceType pt = knight.getType();
 	// VERIFY
 	assertUnit(pt == KNIGHT);
-}   // TEARDOWN
+}  // TEARDOWN

@@ -22,7 +22,7 @@ class TestBoard : public UnitTest
 public:
    void run()
    {
-      // Ticket 6: Board Core
+      // Ticket 6: Board Core       (10 unit tests)
       construct_dummyBoard();
       construct_emptyBoard();
       getCurrentMove_initial();
@@ -34,7 +34,7 @@ public:
       whiteTurn_middleWhite();
       whiteTurn_middleBlack();
 
-      // Ticket 7: Board Fetch
+      // Ticket 7: Board Fetch      (6 unit tests)
       fetch_a1();
       fetch_h8();
       fetch_a8();
@@ -42,9 +42,28 @@ public:
       set_h8();
       set_a8();
 
-      // lab 4
+      // lab 4                      (2 unit tests)
       move_knightMove();
       move_knightAttack();
+
+      // lab 5
+      construct_default();
+
+      move_pawnSimple();
+      move_pawnCapture();
+      move_pawnDouble();
+      move_pawnEnpassant();
+      move_pawnPromotion();
+      move_rookSlide();
+      move_rookAttack();
+      move_bishopSlide();
+      move_bishopAttack();
+      move_queenSlide();
+      move_queenAttack();        // 30th unit test
+      move_kingMove();
+      move_kingAttack();
+      move_kingShortCastle();
+      move_kingLongCastle();
 
       report("Board");
    }
@@ -70,7 +89,27 @@ private:
    void set_h8();
    void set_a8();
 
+   // lab 4
    void move_knightMove();
    void move_knightAttack();
+
+   // lab 5
+   void construct_default();
+
+   void move_pawnSimple();
+   void move_pawnCapture();
+   void move_pawnDouble();
+   void move_pawnEnpassant();
+   void move_pawnPromotion();
+   void move_rookSlide();
+   void move_rookAttack();
+   void move_bishopSlide();
+   void move_bishopAttack();
+   void move_queenSlide();
+   void move_queenAttack();
+   void move_kingMove();
+   void move_kingAttack();
+   void move_kingShortCastle();
+   void move_kingLongCastle();
 };
 

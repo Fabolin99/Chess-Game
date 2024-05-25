@@ -25,19 +25,19 @@ using namespace std;
  ***************************************************/
 Move::Move()
 {
-    source = INVALID;
-    dest = INVALID;
-    promote = INVALID;
-    capture = INVALID;
-    moveType = MOVE;
-    isWhite = true;
-    text = "";
+   source = INVALID;
+   dest = INVALID;
+   promote = INVALID;
+   capture = INVALID;
+   moveType = MOVE;
+   isWhite = true;
+   text = "";
 }
 
 /***************************************************
  * MOVE :CONSTRUCTOR
  ***************************************************/
-Move::Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn)
+Move::Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn, bool fPromotion)
 {
    this->source = from;
    this->dest = to;
@@ -45,6 +45,58 @@ Move::Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool
    this->capture = capturePiece;
    this->isWhite = whiteTurn;
    this->text = getText();
+   this->promote = fPromotion ? QUEEN : SPACE;
+}
+
+/***************************************************
+ * MOVE : convert piece type to the right letter
+ ***************************************************/
+char Move::letterFromPieceType(PieceType pt) const
+{
+   // Map of PieceType to corresponding character
+   std::map<PieceType, char> pieceTypeToChar = 
+   {
+      {PAWN,  'p'}, {KNIGHT, 'n'}, {BISHOP, 'b'}, {ROOK, 'r'},
+      {QUEEN, 'q'}, {KING,   'k'}, {SPACE,  ' '}
+   };
+
+   // Find the PieceType in the map
+   auto it = pieceTypeToChar.find(pt);
+   if (it != pieceTypeToChar.end())
+   {
+      return it->second;  // Return the corresponding character
+   }
+   else
+   {
+      std::cout << "Invalid piece type" << std::endl;
+   }
+}
+
+/***************************************************
+ * MOVE : convert letter to the right piece type
+ ***************************************************/
+PieceType Move::pieceTypeFromLetter(char letter) const
+{
+   // Map of character to corresponding PieceType
+   std::map<char, PieceType> charToPieceType = 
+   {
+      {'p', PAWN }, {'n', KNIGHT}, {'b', BISHOP}, {'r', ROOK}, 
+      {'q', QUEEN}, {'k', KING  }, {' ', SPACE }
+   };
+
+   // Convert the letter to lowercase
+   char lowerLetter = std::tolower(letter);
+
+   // Find the letter in the map
+   auto it = charToPieceType.find(lowerLetter);
+   if (it != charToPieceType.end())
+   {
+      return it->second;  // Return the corresponding PieceType
+   }
+   else
+   {
+      std::cout << "Invalid piece type" << std::endl;
+   }
 }
 
 /***************************************************
@@ -56,65 +108,68 @@ Move::Move(const std::string& moveString)
 }
 
 /***************************************************
- * GetText
+ * MOVE : Get Text
  ***************************************************/
 string Move::getText() const
 {
-    vector<string> column
-    {
-        "a", "b", "c", "d", "e", "f", "g", "h"
-    };
-    vector<string> row
-    {
-        "1", "2", "3", "4", "5", "6", "7", "8"
-    };
-    map<MoveType, string> moveTypeChar
-    {
-        {ENPASSANT, "E"}, {CASTLE_KING, "c"}, {CASTLE_QUEEN, "C"},
-    };
-    map<PieceType, string> captureChar
-    {
-        {PAWN,   "p"}, {KNIGHT, "n"}, {ROOK,   "r"},
-        {QUEEN,  "q"}, {KING,   "k"}, {BISHOP, "b"},
-    };
-    int srcCol = source.getCol();
-    int srcRow = source.getRow();
-    int destCol = dest.getCol();
-    int destRow = dest.getRow();
-    if (moveType == MOVE_ERROR)
-    {
-        return "Error";
-    }
-    string text;
-    text = column[srcCol] + row[srcRow] + column[destCol] + row[destRow];
-    if (moveType != INVALID || moveType != MOVE)
-    {
-        text += moveTypeChar[moveType];
-    }
-    else
-    {
-        if (capture != INVALID)
-        {
-            text += captureChar[capture];
-        }
-    }
-    return text;
+   vector<string> column
+   {
+      "a", "b", "c", "d", "e", "f", "g", "h"
+   };
+   vector<string> row
+   {
+      "1", "2", "3", "4", "5", "6", "7", "8"
+   };
+   map<MoveType, string> moveTypeChar
+   {
+      {ENPASSANT, "E"}, {CASTLE_KING, "c"}, {CASTLE_QUEEN, "C"},
+   };
+   map<PieceType, string> captureChar
+   {
+      {PAWN,   "p"}, {KNIGHT, "n"}, {ROOK,   "r"},
+      {QUEEN,  "q"}, {KING,   "k"}, {BISHOP, "b"},
+   };
+   int srcCol = source.getCol();
+   int srcRow = source.getRow();
+   int destCol = dest.getCol();
+   int destRow = dest.getRow();
+   if (moveType == MOVE_ERROR)
+   {
+      return "Error";
+   }
+   string text;
+   text = column[srcCol] + row[srcRow] + column[destCol] + row[destRow];
+   if (moveType != INVALID || moveType != MOVE)
+   {
+      text += moveTypeChar[moveType];
+   }
+   else
+   {
+      if (capture != INVALID)
+      {
+         text += captureChar[capture];
+      }
+   }
+   if (promote != SPACE && promote != INVALID)
+   {
+      text += "Q";
+   }
+   return text;
 }
-
 
 /***************************************************
  * MOVE:  ASSIGN MOVE
  ***************************************************/
 void Move::assign(const Move& other)
 {
-    // Assigning attributes from 'other' to the current object
-    this->source = other.source;
-    this->dest = other.dest;
-    this->promote = other.promote;
-    this->capture = other.capture;
-    this->moveType = other.moveType;
-    this->isWhite = other.isWhite;
-    this->text = other.text;
+   // Assigning attributes from 'other' to the current object
+   this->source = other.source;
+   this->dest = other.dest;
+   this->promote = other.promote;
+   this->capture = other.capture;
+   this->moveType = other.moveType;
+   this->isWhite = other.isWhite;
+   this->text = other.text;
 }
 
 /***************************************************
@@ -122,62 +177,69 @@ void Move::assign(const Move& other)
  ***************************************************/
 bool Move::assign(const std::string& str)
 {
-    // Ensure the str has a valid length
-    if (str.length() < 4) {
-        return false;
-    }
+   // Ensure the str has a valid length
+   if (str.length() < 4) 
+   {
+      return false;
+   }
 
-    // Extract source and destination positions from str
-    std::string sourcePos = str.substr(0, 2);
-    std::string destPos = str.substr(2, 2);
+   // Extract source and destination positions from str
+   std::string sourcePos = str.substr(0, 2);
+   std::string destPos = str.substr(2, 2);
 
-    // Set source and destination positions
-    source = Position(sourcePos.c_str());
-    dest = Position(destPos.c_str());
+   // Set source and destination positions
+   source = Position(sourcePos.c_str());
+   dest = Position(destPos.c_str());
 
-    // If there's a fifth character, it should be the promotion piece, the captured piece, 'E' for en passant, or 'c' for castle
-    if (str.length() >= 5) {
-        char fifthChar = str[4];
-        if (fifthChar == 'E') {
-            moveType = ENPASSANT;
-        }
-        else if (fifthChar == 'c') {
-            moveType = CASTLE_KING;
-        }
-        else if (fifthChar == 'C') {
-            moveType = CASTLE_QUEEN;
-        }
-        else if (fifthChar == 'q' || fifthChar == 'r' || fifthChar == 'b' || fifthChar == 'n' || fifthChar == 'p' || fifthChar == 'k') {
-            capture = pieceTypeFromLetter(fifthChar);
-            moveType = MOVE; // Regular move
-        }
-        else {
-            promote = pieceTypeFromLetter(fifthChar);
-            moveType = MOVE; // Regular move
-        }
-    }
-    else {
-        promote = SPACE; // No promotion
-        capture = SPACE; // No capture
-        moveType = MOVE; // Regular move
-    }
+   // If there's a fifth character, it should be the promotion piece, the captured piece, 'E' for en passant, or 'c' for castle
+   if (str.length() >= 5) 
+   {
+      char fifthChar = str[4];
+      if (fifthChar == 'E') 
+      {
+         moveType = ENPASSANT;
+      }
+      else if (fifthChar == 'c') 
+      {
+         moveType = CASTLE_KING;
+      }
+      else if (fifthChar == 'C') 
+      {
+         moveType = CASTLE_QUEEN;
+      }
+      else if (fifthChar == 'q' || fifthChar == 'r' || fifthChar == 'b' || fifthChar == 'n' || fifthChar == 'p' || fifthChar == 'k') 
+      {
+         capture = pieceTypeFromLetter(fifthChar);
+         moveType = MOVE; // Regular move
+      }
+      else 
+      {
+         promote = pieceTypeFromLetter(fifthChar);
+         moveType = MOVE; // Regular move
+      }
+   }
+   else 
+   {
+      promote = SPACE; // No promotion
+      capture = SPACE; // No capture
+      moveType = MOVE; // Regular move
+   }
 
-    // Set other attributes to default values
-    isWhite = true; // White's move by default
-    text = str; // Textual version of the move
+   // Set other attributes to default values
+   isWhite = true; // White's move by default
+   text = str; // Textual version of the move
 
-    return true;
+   return true;
 }
-
 
 /***************************************************
  *  INSERTION OPERATOR
  ***************************************************/
 std::ostream& operator<<(std::ostream& os, const Move& move)
 {
-    // Implement the behavior of how a Move object should be output
-    os << "Move from " << move.getSrc() << " to " << move.getDes();
-    return os;
+   // Implement the behavior of how a Move object should be output
+   os << "Move from " << move.getSrc() << " to " << move.getDes();
+   return os;
 }
 
 /***************************************************
@@ -186,12 +248,14 @@ std::ostream& operator<<(std::ostream& os, const Move& move)
  // Still need extraction operator.
 
 // extra operators:
-bool Move::operator==(const Move& other) const {
-    // Two moves are equal if their source and destination positions are the same
-    return source == other.source && dest == other.dest;
+bool Move::operator==(const Move& other) const 
+{
+   // Two moves are equal if their source and destination positions are the same
+   return source == other.source && dest == other.dest;
 }
 
-bool Move::operator<(const Move& other) const {
+bool Move::operator<(const Move& other) const 
+{
    // One move is less than another if its source position is less,
    // or if their sources are equal and its destination is less
    return source < other.source || (source == other.source && dest < other.dest);

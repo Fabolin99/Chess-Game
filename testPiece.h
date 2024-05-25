@@ -2,7 +2,7 @@
  * Header File:
  *    TEST PIECE
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for the piece base class
  ************************************************************************/

@@ -111,17 +111,7 @@ public:
 
 private:
     void set(uint8_t colRowNew) { colRow = colRowNew; }
-    void set(const char* s)
-    {
-        if (s[0] < 'a' || s[0] > 'h' || s[1] < '1' || s[1] > '8') {
-            colRow = 0xFF; // Invalid position
-        }
-        else {
-            int c = s[0] - 'a';
-            int r = s[1] - '1';
-            colRow = (c << 4) | r;
-        }
-    }
+    void set(const char* s);
 
     uint8_t colRow;
     static double squareWidth;

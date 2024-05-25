@@ -9,7 +9,6 @@
 
 #pragma once
 
-
 #include "unitTest.h"
 #include "pieceSpace.h"
 

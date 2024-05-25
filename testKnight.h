@@ -2,7 +2,7 @@
  * Header File:
  *    TEST KNIGHT
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for Knight
  ************************************************************************/
@@ -10,7 +10,6 @@
 #pragma once
 
 #include "unitTest.h"
-
 
 /***************************************************
  * KNIGHT TEST

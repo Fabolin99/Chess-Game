@@ -27,7 +27,6 @@ class Move
 {
 public:
 	enum MoveType { MOVE, ENPASSANT, CASTLE_KING, CASTLE_QUEEN, MOVE_ERROR };
-	Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn);
 
 	// DECLARATIONS
 	Move(const std::string& moveString); // Constructor for movements using strings ie: e6e5
@@ -36,8 +35,9 @@ public:
 	Position getDes() const { return dest ;}
 	PieceType getPromotion() const { return promote; }
 	PieceType getCapture() const { return capture; }
-	bool getCastleK() const { return CASTLE_KING; }
-	bool getCastleQ() const { return CASTLE_QUEEN; }
+	bool getCastleK() const { return (moveType == CASTLE_KING ? true : false); }
+	bool getCastleQ() const { return (moveType == CASTLE_QUEEN ? true : false); }
+	bool isEnpassant() const { return (moveType == ENPASSANT ? true : false); }
 	std::string getWhiteMove() const { return text; }
 	bool getIsWhite() const { return isWhite; } // extra to get the white turn
 	void setEnPassant() { this->moveType = ENPASSANT; }
@@ -58,53 +58,11 @@ public:
 	friend TestBoard;
 	// constructor
 	Move();
+	Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn, bool fPromotion = false);
 
 private:
-	char letterFromPieceType(PieceType pt) const
-	{
-		// Map of PieceType to corresponding character
-		std::map<PieceType, char> pieceTypeToChar = {
-			{PAWN, 'p'},
-			{KNIGHT, 'n'},
-			{BISHOP, 'b'},
-			{ROOK, 'r'},
-			{QUEEN, 'q'},
-			{KING, 'k'},
-			{SPACE, ' '}
-		};
-
-		// Find the PieceType in the map
-		auto it = pieceTypeToChar.find(pt);
-		if (it != pieceTypeToChar.end())
-			return it->second;  // Return the corresponding character
-		else
-			std::cout << "Invalid piece type" << std::endl;
-	}
-
-
-	PieceType pieceTypeFromLetter(char letter) const
-	{
-		// Map of character to corresponding PieceType
-		std::map<char, PieceType> charToPieceType = {
-			{'p', PAWN},
-			{'n', KNIGHT},
-			{'b', BISHOP},
-			{'r', ROOK},
-			{'q', QUEEN},
-			{'k', KING},
-			{' ', SPACE}
-		};
-
-		// Convert the letter to lowercase
-		char lowerLetter = std::tolower(letter);
-
-		// Find the letter in the map
-		auto it = charToPieceType.find(lowerLetter);
-		if (it != charToPieceType.end())
-			return it->second;  // Return the corresponding PieceType
-		else
-			std::cout << "Invalid piece type" << std::endl;
-	}
+	char letterFromPieceType(PieceType pt) const;
+	PieceType pieceTypeFromLetter(char letter) const;
 
 	Position  source;    // where the move originated from
 	Position  dest;      // where the move finished

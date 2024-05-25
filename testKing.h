@@ -2,7 +2,7 @@
  * Header File:
  *    TEST KING
  * Author:
- *    <your name here>
+ *    Yat Lam, Fabian Santiago, Josue Molina
  * Summary:
  *    The unit tests for King
  ************************************************************************/
@@ -11,19 +11,16 @@
 
 #include "unitTest.h"
 
-
-
-
-/***************************************************
- * KING TEST
- * Test the King class
- ***************************************************/
+ /***************************************************
+  * KING TEST
+  * Test the King class
+  ***************************************************/
 class TestKing : public UnitTest
 {
 public:
 
    void run()
-   {     
+   {
       getMoves_blocked();
       getMoves_capture();
       getMoves_free();

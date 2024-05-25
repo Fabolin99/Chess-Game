@@ -2,7 +2,7 @@
  * Header File:
  *    TEST MOVE 
  * Author:
- *     Yat Lam, Fabian Santiago, Josue Molina
+ *    Yat Lam, Fabian Santiago, Josue Molina
  * Summary
  *    test the Move class
  ************************************************************************/

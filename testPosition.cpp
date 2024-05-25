@@ -7,11 +7,9 @@
  *    The unit tests for Position
  ************************************************************************/
 
-
 #include "testPosition.h" // for POSITION_TEST
 #include "position.h"     // for POSITION
 #include <cassert>        // for ASSERT
-
 
 /***********************************************
  * GET  Zero
@@ -30,79 +28,59 @@
  * +---a----b----c----d----e----f----g----h----+
  ************************************************/
 void PositionTest::getRow_zero()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
    int row;
-
    // EXERCISE
    row = pos.getRow();
-
    // VERIFY
    assertUnit(row == 0);
    assertUnit(pos.colRow == 0x00);
-
 }  // TEARDOWN
 void PositionTest::getCol_zero()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
-   int col;
-
+   int col; 
    // EXERCISE
    col = pos.getCol();
-
    // VERIFY
    assertUnit(col == 0);
    assertUnit(pos.colRow == 0x00);
-
 }  // TEARDOWN
 void PositionTest::getLocation_zero()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
    int location;
-
    // EXERCISE
    location = pos.getLocation();
-
    // VERIFY
    assertUnit(location == 0);
    assertUnit(pos.colRow == 0x00);
-
 }  // TEARDOWN
 void PositionTest::isValid_zero()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
    bool f;
-
    // EXERCISE
    f = pos.isValid();
-
    // VERIFY
    assertUnit(f == true);
    assertUnit(pos.colRow == 0x00);
-
 }  // TEARDOWN
 void PositionTest::isInvalid_zero()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
    bool f;
-
    // EXERCISE
    f = pos.isInvalid();
-
    // VERIFY
    assertUnit(f == false);
    assertUnit(pos.colRow == 0x00);
-
 }  // TEARDOWN
 
 
@@ -123,78 +101,59 @@ void PositionTest::isInvalid_zero()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::getRow_middle()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x14;
    int row;
-
    // EXERCISE
    row = pos.getRow();
-
    // VERIFY
    assertUnit(row == 4);
    assertUnit(pos.colRow == 0x14);
-
 }  // TEARDOWN
 void PositionTest::getCol_middle()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x14;
    int col;
-
    // EXERCISE
    col = pos.getCol();
-
    // VERIFY
    assertUnit(col == 1);
    assertUnit(pos.colRow == 0x14);
 }  // TEARDOWN
 void PositionTest::getLocation_middle()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x14;
    int location;
-
    // EXERCISE
    location = pos.getLocation();
-
    // VERIFY
    assertUnit(location == 33);
    assertUnit(pos.colRow == 0x14);
-
 }  // TEARDOWN
 void PositionTest::isValid_middle()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x14;
    bool f;
-
    // EXERCISE
    f = pos.isValid();
-
    // VERIFY
    assertUnit(f == true);
    assertUnit(pos.colRow == 0x14);
-
 }  // TEARDOWN
 void PositionTest::isInvalid_middle()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x14;
    bool f;
-
    // EXERCISE
    f = pos.isInvalid();
-
    // VERIFY
    assertUnit(f == false);
    assertUnit(pos.colRow == 0x14);
-
 }  // TEARDOWN
 
 /*************************************
@@ -214,79 +173,59 @@ void PositionTest::isInvalid_middle()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::getRow_end()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x77;
    int row;
-
    // EXERCISE
    row = pos.getRow();
-
    // VERIFY
    assertUnit(row == 7);
    assertUnit(pos.colRow == 0x77);
-
 }  // TEARDOWN
 void PositionTest::getCol_end()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x77;
    int col;
-
    // EXERCISE
    col = pos.getCol();
-
    // VERIFY
    assertUnit(col == 7);
    assertUnit(pos.colRow == 0x77);
-
 }  // TEARDOWN
 void PositionTest::getLocation_end()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x77;
    int location;
-
    // EXERCISE
    location = pos.getLocation();
-
    // VERIFY
    assertUnit(location == 63);
    assertUnit(pos.colRow == 0x77);
-
 }  // TEARDOWN
 void PositionTest::isValid_end()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x77;
    bool f;
-
    // EXERCISE
    f = pos.isValid();
-
    // VERIFY
    assertUnit(f == true);
    assertUnit(pos.colRow == 0x77);
-
 }  // TEARDOWN
 void PositionTest::isInvalid_end()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x77;
    bool f;
-
    // EXERCISE
    f = pos.isInvalid();
-
    // VERIFY
    assertUnit(f == false);
    assertUnit(pos.colRow == 0x77);
-
 }  // TEARDOWN
 
 /*************************************
@@ -306,64 +245,48 @@ void PositionTest::isInvalid_end()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::getRow_invalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0xff;
    int row;
-
    // EXERCISE
    row = pos.getRow();
-
    // VERIFY
    assertUnit(row == -1);
    assertUnit(pos.colRow == 0xff);
-
 }  // TEARDOWN
 void PositionTest::getCol_invalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0xff;
    int col;
-
    // EXERCISE
    col = pos.getCol();
-
    // VERIFY
    assertUnit(col == -1);
    assertUnit(pos.colRow == 0xff);
-
 }  // TEARDOWN
 void PositionTest::isValid_invalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0xff;
    bool f;
-
    // EXERCISE
    f = pos.isValid();
-
    // VERIFY
    assertUnit(f == false);
    assertUnit(pos.colRow == 0xff);
-
 }  // TEARDOWN
 void PositionTest::isInvalid_invalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0xff;
    bool f;
-
    // EXERCISE
    f = pos.isInvalid();
-
    // VERIFY
    assertUnit(f == true);
    assertUnit(pos.colRow == 0xff);
-
 }  // TEARDOWN
 
 /*************************************
@@ -382,64 +305,48 @@ void PositionTest::isInvalid_invalid()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::getRow_rowInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x59;
    int row;
-
    // EXERCISE
    row = pos.getRow();
-
    // VERIFY
    assertUnit(row == -1);
    assertUnit(pos.colRow == 0x59);
-
 }  // TEARDOWN
 void PositionTest::getCol_rowInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x59;
    int col;
-
    // EXERCISE
    col = pos.getCol();
-
    // VERIFY
    assertUnit(col == -1);
    assertUnit(pos.colRow == 0x59);
-
 }  // TEARDOWN
 void PositionTest::isValid_rowInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x59;
    bool f;
-
    // EXERCISE
    f = pos.isValid();
-
    // VERIFY
    assertUnit(f == false);
    assertUnit(pos.colRow == 0x59);
-
 }  // TEARDOWN
 void PositionTest::isInvalid_rowInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x59;
    bool f;
-
    // EXERCISE
    f = pos.isInvalid();
-
    // VERIFY
    assertUnit(f == true);
    assertUnit(pos.colRow == 0x59);
-
 }  // TEARDOWN
 
 /*************************************
@@ -457,64 +364,48 @@ void PositionTest::isInvalid_rowInvalid()
  * +---a----b----c----d----e----f----g----h--------+
  **************************************/
 void PositionTest::getRow_colInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x95;
    int row;
-
    // EXERCISE
    row = pos.getRow();
-
    // VERIFY
    assertUnit(row == -1);
    assertUnit(pos.colRow == 0x95);
-
 }  // TEARDOWN
 void PositionTest::getCol_colInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x95;
    int col;
-
    // EXERCISE
    col = pos.getCol();
-
    // VERIFY
    assertUnit(col == -1);
    assertUnit(pos.colRow == 0x95);
-
 }  // TEARDOWN
 void PositionTest::isValid_colInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x95;
    bool f;
-
    // EXERCISE
    f = pos.isValid();
-
    // VERIFY
    assertUnit(f == false);
    assertUnit(pos.colRow == 0x95);
-
 }  // TEARDOWN
 void PositionTest::isInvalid_colInvalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x95;
    bool f;
-
    // EXERCISE
    f = pos.isInvalid();
-
    // VERIFY
    assertUnit(f == true);
    assertUnit(pos.colRow == 0x95);
-
 }  // TEARDOWN
 
 /*************************************
@@ -534,19 +425,14 @@ void PositionTest::isInvalid_colInvalid()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::set_col()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
-
    // EXERCISE
    pos.setCol(5);
-
    // VERIFY
    assertUnit(pos.colRow == 0x50);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * SET TEST Row
@@ -565,19 +451,14 @@ void PositionTest::set_col()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::set_row()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
-
    // EXERCISE
    pos.setRow(4);
-
    // VERIFY
    assertUnit(pos.colRow == 0x04);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * SET TEST Both
@@ -596,20 +477,14 @@ void PositionTest::set_row()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::set_both()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
-
    // EXERCISE
    pos.set(7 /*col*/, 4 /*row*/);
-
    // VERIFY
    assertUnit(pos.colRow == 0x74);
-
-   // TEARDOWN
-}
-
+}  // TEARDOWN
 
 /*************************************
  * SET TEST Text
@@ -628,51 +503,34 @@ void PositionTest::set_both()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::set_text()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
-
    // EXERCISE
    pos = "c6";
-
    // VERIFY
    assertUnit(pos.colRow == 0x25);
-
-   // TEARDOWN
-}
-
+}  // TEARDOWN
 void PositionTest::set_string()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x00;
-
    // EXERCISE
    pos = string("c6");
-
    // VERIFY
    assertUnit(pos.colRow == 0x25);
-
-   // TEARDOWN
-}
-
+}  // TEARDOWN
 void PositionTest::set_copy()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    Position posRHS;
    posRHS.colRow = 0x25;
-
    // EXERCISE
    pos = posRHS;
-
    // VERIFY
    assertUnit(pos.colRow == 0x25);
    assertUnit(posRHS.colRow == 0x25);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * ADJUST TEST AddColumn
@@ -691,34 +549,23 @@ void PositionTest::set_copy()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::adjust_addColumn()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x62;
-
    // EXERCISE
    pos += ADD_C;
-
    // VERIFY
    assertUnit(pos.colRow == 0x72);
-
-   // TEARDOWN
-}
-
+}  // TEARDOWN
 void PositionTest::adjust_addRow()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x62;
-
    // EXERCISE
    pos += ADD_R;
-
    // VERIFY
    assertUnit(pos.colRow == 0x63);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * ADJUST TEST OffRight
@@ -738,19 +585,14 @@ void PositionTest::adjust_addRow()
 
  **************************************/
 void PositionTest::adjust_offRight()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x73;
-
    // EXERCISE
    pos += ADD_C;
-
    // VERIFY
    assertUnit(pos.colRow == 0xff);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * ADJUST TEST OffTop
@@ -769,19 +611,14 @@ void PositionTest::adjust_offRight()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::adjust_offTop()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x47;
-
    // EXERCISE
    pos += ADD_R;
-
    // VERIFY
    assertUnit(pos.colRow == 0xff);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * ADJUST TEST OffLeft
@@ -800,19 +637,14 @@ void PositionTest::adjust_offTop()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::adjust_offLeft()
-{
-   // SETUP
+{   // SETUP
    Position pos;
    pos.colRow = 0x04;
-
    // EXERCISE
    pos += SUB_C;
-
    // VERIFY
    assertUnit(pos.colRow == 0xff);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * ADJUST TEST OffBottom
@@ -831,19 +663,14 @@ void PositionTest::adjust_offLeft()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::adjust_offBottom()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0x40;
-
    // EXERCISE
    pos += SUB_R;
-
    // VERIFY
    assertUnit(pos.colRow == 0xff);
-
-   // TEARDOWN
-}
+}  // TEARDOWN
 
 /*************************************
  * ADJUST TEST Invalid
@@ -862,20 +689,14 @@ void PositionTest::adjust_offBottom()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::adjust_invalid()
-{
-   // SETUP
+{  // SETUP
    Position pos;
    pos.colRow = 0xff;
-
    // EXERCISE
    pos += ADD_R;
-
    // VERIFY
    assertUnit(pos.colRow == 0xff);
-
-   // TEARDOWN
-}
-
+}  // TEARDOWN
 
 /*************************************
  * EQUALS NOT
@@ -894,20 +715,16 @@ void PositionTest::adjust_invalid()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::equal_not()
-{
-   // SETUP
+{  // SETUP
    Position posLHS;
    posLHS.colRow = 0x25;
    Position posRHS;
    posRHS.colRow = 0x43;
    bool response;
-
    // EXERCISE
    response = (posLHS == posRHS);
-
    // VERIFY
    assertUnit(response == false);
-
 }  // TEARDOWN
 
 /*************************************
@@ -927,20 +744,16 @@ void PositionTest::equal_not()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::equal_equals()
-{
-   // SETUP
+{  // SETUP
    Position posLHS;
    posLHS.colRow = 0x25;
    Position posRHS;
    posRHS.colRow = 0x25;
    bool response;
-
    // EXERCISE
    response = (posLHS == posRHS);
-
    // VERIFY
    assertUnit(response == true);
-
 }  // TEARDOWN
 
 /*************************************
@@ -960,20 +773,16 @@ void PositionTest::equal_equals()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::lessthan_lessthan()
-{
-   // SETUP
+{  // SETUP
    Position posLHS;
    posLHS.colRow = 0x25;
    Position posRHS;
    posRHS.colRow = 0x43;
    bool response;
-
    // EXERCISE
    response = (posLHS < posRHS);
-
    // VERIFY
    assertUnit(response == true);
-
 }  // TEARDOWN
 
 /*************************************
@@ -993,20 +802,16 @@ void PositionTest::lessthan_lessthan()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::lessthan_equals()
-{
-   // SETUP
+{  // SETUP
    Position posLHS;
    posLHS.colRow = 0x25;
    Position posRHS;
    posRHS.colRow = 0x25;
    bool response;
-
    // EXERCISE
    response = (posLHS < posRHS);
-
    // VERIFY
    assertUnit(response == false);
-
 }  // TEARDOWN
 
 /*************************************
@@ -1026,18 +831,14 @@ void PositionTest::lessthan_equals()
  * +---a----b----c----d----e----f----g----h----+
  **************************************/
 void PositionTest::lessthan_greaterthan()
-{
-   // SETUP
+{  // SETUP
    Position posLHS;
    posLHS.colRow = 0x42;
    Position posRHS;
    posRHS.colRow = 0x25;
    bool response;
-
    // EXERCISE
    response = (posLHS < posRHS);
-
    // VERIFY
    assertUnit(response == false);
-
 }  // TEARDOWN

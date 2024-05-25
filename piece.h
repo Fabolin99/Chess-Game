@@ -69,12 +69,12 @@ public:
    // getters
    virtual bool operator == (PieceType rhs) const { return this->getType() == rhs; }
    virtual bool operator != (PieceType rhs) const { return this->getType() != rhs; }
-   virtual bool isWhite()                  const { return this->fWhite; }
-   virtual bool isMoved()                  const { return this->nMoves > 0; }
-   virtual int  getNMoves()                const { return this->nMoves; }
-   virtual void decrementNMoves()                {                      }
-   virtual const Position& getPosition()  const { return this->position; }
-   virtual bool justMoved(int currentMove) const { return (this->lastMove == currentMove || this->lastMove == currentMove - 1); }
+   virtual bool isWhite()                   const { return this->fWhite; }
+   virtual bool isMoved()                   const { return this->nMoves > 0; }
+   virtual int  getNMoves()                 const { return this->nMoves; }
+   virtual void decrementNMoves()                 {                      }
+   virtual const Position& getPosition()    const { return this->position; }
+   virtual bool justMoved(int currentMove)  const { return (this->lastMove == currentMove || this->lastMove == currentMove - 1); }
 
    // setter
    virtual void setLastMove(int currentMove) { this->lastMove = currentMove; this->nMoves++; }
@@ -149,7 +149,7 @@ public:
    void setLastMove(int currentMove) { assert(false); }
 
    // overwritten by the various pieces
-   PieceType getType()            const { assert(false); return SPACE; } // added const in front of pieceType
+   PieceType getType()            const { assert(false); return SPACE; }
    void display(ogstream* pgout)  const { assert(false); }
 };
 

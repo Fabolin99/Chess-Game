@@ -2,20 +2,19 @@
  * Header File:
  *    TEST BISHOP
  * Author:
- *    <your name here>
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for the bishop
  ************************************************************************/
 
 #pragma once
 
-
 #include "unitTest.h"
 
-/***************************************************
- * BISHOP TEST
- * Test the BISHOP class
- ***************************************************/
+ /***************************************************
+  * BISHOP TEST
+  * Test the BISHOP class
+  ***************************************************/
 class TestBishop : public UnitTest
 {
 public:
@@ -28,7 +27,7 @@ public:
       getMoves_slideToCapture();
 
       getType();
-      
+
       report("Bishop");
    }
 private:

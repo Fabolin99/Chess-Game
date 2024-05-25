@@ -1,10 +1,10 @@
 /***********************************************************************
  * Header File:
- *    KNIGHT
+ *    QUEEN
  * Author:
  *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
- *    The KNIGHT class
+ *    The QUEEN class
  ************************************************************************/
 
 #pragma once
@@ -12,16 +12,16 @@
 #include "piece.h"
 
  /***************************************************
-  * KNIGHT
-  * The knight, aka the "Horse"
+  * QUEEN
+  * The queen
   ***************************************************/
-class Knight : public Piece
+class Queen : public Piece
 {
 public:
-   Knight(const Position& pos, bool isWhite) : Piece(pos, isWhite) { }
-   Knight(int c, int r, bool isWhite) : Piece(c, r, isWhite) { }
-   ~Knight() {                }
-   PieceType getType()            const { return KNIGHT; }
+   Queen(const Position& pos, bool isWhite) : Piece(pos, isWhite) { }
+   Queen(int c, int r, bool isWhite) : Piece(c, r, isWhite) { }
+   ~Queen() {                }
+   PieceType getType()            const { return QUEEN; }
    void getMoves(set <Move>& moves, const Board& board) const;
    void display(ogstream* pgout)  const;
 };

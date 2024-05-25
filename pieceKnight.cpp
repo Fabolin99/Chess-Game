@@ -4,7 +4,7 @@
  * Author:
  *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
- *    The knight class
+ *    The KNIGHT class
  ************************************************************************/
 
 #include "pieceKnight.h"
@@ -24,12 +24,12 @@ void Knight::display(ogstream* pgout) const
    pgout->drawKnight(this->position, !this->fWhite);
 }
 
-
 /**********************************************
  * KNIGHT : GET POSITIONS
  *********************************************/
 void Knight::getMoves(set <Move>& moves, const Board& board) const
 {
+   // Adjust-moves for a Knight
    CR possibleMoves[8] =
    {
             {-1,  2}, {1,  2},
@@ -37,6 +37,8 @@ void Knight::getMoves(set <Move>& moves, const Board& board) const
    {-2, -1},                    {2, -1},
             {-1, -2}, {1, -2}
    };
+
+   // Going through every single possible adjust-move
    for (int i = 0; i < 8; i++)
    {
       int newRow = this->position.getRow() + possibleMoves[i].row;
