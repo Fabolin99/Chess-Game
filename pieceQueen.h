@@ -2,7 +2,7 @@
  * Header File:
  *    QUEEN
  * Author:
- *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
+*    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The QUEEN class
  ************************************************************************/

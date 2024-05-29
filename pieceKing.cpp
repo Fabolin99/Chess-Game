@@ -24,6 +24,7 @@ void King::display(ogstream* pgout) const
    pgout->drawKing(this->position, !this->fWhite);
 }
 
+
 /**********************************************
  * KNIGHT : GET POSITIONS
  *********************************************/
@@ -67,23 +68,18 @@ void King::getMoves(set <Move>& moves, const Board& board) const
    {
       // queen side
       if (board[Position(1, 0)].getType() == SPACE &&       // check if it's empty between
-          board[Position(2, 0)].getType() == SPACE &&       // the king and the left rook
+         board[Position(2, 0)].getType() == SPACE &&       // the king and the left rook
           board[Position(3, 0)].getType() == SPACE   )      
       {
          if (board[Position(0, 0)].getType() == ROOK &&     // check if the king and 
-             !board[Position(0, 0)].isMoved()        &&     // the left rook have moved
-             !this->isMoved()                          )
          {
             moves.insert(Move("e1c1C"));
          }
       }
       // king side
       if (board[Position(5, 0)].getType() == SPACE &&       // check if it's empty between
-          board[Position(6, 0)].getType() == SPACE   )      // the king and the right rook
       {
          if (board[Position(7, 0)].getType() == ROOK &&     // check if the king and 
-             !board[Position(7, 0)].isMoved()        &&     // the right rook have moved
-             !this->isMoved()                          )
          {
             moves.insert(Move("e1g1c"));
          }
@@ -94,23 +90,17 @@ void King::getMoves(set <Move>& moves, const Board& board) const
    {
       // queen side
       if (board[Position(1, 7)].getType() == SPACE &&       // check if it's empty between
-          board[Position(2, 7)].getType() == SPACE &&       // the king and the left rook
-          board[Position(3, 7)].getType() == SPACE   )      
+         board[Position(2, 7)].getType() == SPACE &&       // the king and the left rook
       {
          if (board[Position(0, 7)].getType() == ROOK &&     // check if the king and 
-             !board[Position(0, 7)].isMoved()        &&     // the left rook have moved
-             !this->isMoved()                          )     
          {
             moves.insert(Move("e8c8C"));
          }
       }
       // king side
       if (board[Position(5, 7)].getType() == SPACE &&       // check if it's empty between
-          board[Position(6, 7)].getType() == SPACE   )      // the king and the right rook
       {
          if (board[Position(7, 7)].getType() == ROOK &&     // check if the king and
-             !board[Position(7, 7)].isMoved()        &&     // the right rook have moved
-             !this->isMoved()                          )
          {
             moves.insert(Move("e8g8c"));
          }

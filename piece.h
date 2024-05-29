@@ -80,9 +80,9 @@ public:
    virtual void setLastMove(int currentMove) { this->lastMove = currentMove; this->nMoves++; }
 
    // overwritten by the various pieces
-   virtual PieceType getType()       const { return SPACE; }; // changed this
+   virtual PieceType getType()       const { return SPACE; }; 
    virtual void display(ogstream* pgout)                         const = 0;
-   void getMoves(set <Move>& moves, const Board& board) const;
+   virtual void getMoves(set <Move>& moves, const Board& board) const; // added virtual
 
 protected:
 

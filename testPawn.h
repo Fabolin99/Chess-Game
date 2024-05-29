@@ -2,7 +2,7 @@
  * Header File:
  *    TEST PAWN
  * Author:
- *    Yat Lam, Fabian Santiago, Josue Molina
+ *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The unit tests for Pawn
  ************************************************************************/

@@ -2,7 +2,7 @@
  * Header File:
  *    KING
  * Author:
- *    Yat Lam, Josue Molina, and Fabian Diaz Santiago
+*    Yat Lam, Josue Molina, and Fabian Diaz Santiago
  * Summary:
  *    The KING class
  ************************************************************************/
@@ -11,10 +11,10 @@
 
 #include "piece.h"
 
-/***************************************************
- * KING
- * The king
- ***************************************************/
+ /***************************************************
+  * KING
+  * The king
+  ***************************************************/
 class King : public Piece
 {
 public:
@@ -25,3 +25,4 @@ public:
    void getMoves(set <Move>& moves, const Board& board) const;
    void display(ogstream* pgout)  const;
 };
+

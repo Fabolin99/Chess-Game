@@ -12,6 +12,8 @@
 #include "board.h"
 #include "uiDraw.h"
 #include <cassert>      
+#include <iostream>
+using namespace std; // DELETE!!!!!!!!!!!!
 
  /*************************************
   * +---a-b-c-d-e-f-g-h---+

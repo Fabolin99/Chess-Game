@@ -40,7 +40,7 @@ void Queen::getMoves(set <Move>& moves, const Board& board) const
    {
       int newRow = this->position.getRow() + possibleMoves[i].row;
       int newCol = this->position.getCol() + possibleMoves[i].col;
-      
+
       Position newPos(newCol, newRow);
 
       while (newPos.isValid() && board[newPos].getType() == SPACE)
