@@ -60,9 +60,6 @@
     <ClCompile Include="testBishop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pieceBishop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="testRook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,8 +84,35 @@
     <ClCompile Include="testPawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pieceBishop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="testPawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testQueen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testKing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testRook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="testBishop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pieceRook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pieceQueen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pieceKing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="move.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -138,6 +162,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="testSpace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="piecePawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pieceBishop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

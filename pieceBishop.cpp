@@ -70,13 +70,5 @@ void Bishop::getMoves(set<Move>& moves, const Board& board) const
          newCol += possibleMoves[i].col;
          newRow += possibleMoves[i].row;
       }
-
-      // If the new position is valid and has a piece of the opposite color, add the capture move
-      Position newPos(newCol, newRow);
-      if (newPos.isValid() && board[newPos].getType() != SPACE && board[newPos].isWhite() != this->fWhite)
-      {
-         Move move(this->position, newPos, Move::MOVE, board[newPos].getType() /* capture */, this->fWhite);
-         moves.insert(move);
-      }
    }
 }
