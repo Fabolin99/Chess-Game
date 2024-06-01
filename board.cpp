@@ -23,7 +23,6 @@
 #include <algorithm>
 using namespace std;
 
-
 /***********************************************
  * BOARD : RESET
  *         Just fill the board with the known pieces
@@ -75,8 +74,7 @@ void Board::reset(bool fFree)
       board[col][6] = new Pawn(col, 6, false /*isWhite*/);         // black pawns on row 6
       board[col][1] = new Pawn(col, 1, true  /*isWhite*/);         // white pawns on row 1
    }
-
-                                                                   
+                                                      
    // fill in spaces
    for (int c = 0; c < 8; c++)
    {
@@ -105,8 +103,6 @@ Piece& Board::operator [] (const Position& pos)
 {
    return *board[pos.getCol()][pos.getRow()];
 }
-
-
 
 /************************************************
  * BOARD : CONSTRUCT
@@ -175,9 +171,32 @@ void Board::move(const Move& move)
    {
       return;
    }
+   cout << "Move Type: " << move.moveType << endl;
+   bool getCastlek = move.getCastleK();
+   cout << "Return from getCastleKing: " << getCastlek << endl;
+   cout << "Return from getPromotion:  " << move.getPromotion() << endl;
+   if (move.getPromotion() == INVALID)
+   {
+      cout << "Gotcha" << endl;
+   }
    // Deal with special moves
+   // Check if it's a castling move
+   if (move.getCastleK())
+   {
+      Piece* pieceRook = board[7][move.getSrc().getRow()];
+      board[7][move.getSrc().getRow()] = board[5][move.getSrc().getRow()];
+      board[5][move.getSrc().getRow()] = pieceRook;
+      pieceRook->setPosition(board[7][move.getSrc().getRow()]->getPosition());
+   }
+   else if (move.getCastleQ())
+   {
+      Piece* pieceRook = board[0][move.getSrc().getRow()];
+      board[0][move.getSrc().getRow()] = board[3][move.getSrc().getRow()];
+      board[3][move.getSrc().getRow()] = pieceRook;
+      pieceRook->setPosition(board[0][move.getSrc().getRow()]->getPosition());
+   }
    // Check if it is an enpassant move
-   if (move.isEnpassant())
+   else if (move.isEnpassant())
    {
       board[move.getDes().getCol()][move.getSrc().getRow()] = new Space(move.getDes().getCol(), move.getSrc().getRow());
    }
@@ -201,42 +220,30 @@ void Board::move(const Move& move)
          board[move.getSrc().getCol()][move.getSrc().getRow()] = new Knight(move.getSrc().getCol(), move.getSrc().getRow(), move.getIsWhite());
       }
    }
-   if (move.getCastleK())
-   {
-      board[5][move.getSrc().getRow()] = board[7][move.getSrc().getRow()];
-      Piece* pieceRook = board[5][move.getSrc().getRow()];
-      pieceRook->setPosition(board[7][move.getSrc().getRow()]->getPosition());
-      board[7][move.getSrc().getRow()] = new Space(7, move.getSrc().getRow());
-   }
-   else if (move.getCastleQ())
-   {
-      board[3][move.getSrc().getRow()] = board[0][move.getSrc().getRow()];
-      Piece* pieceRook = board[3][move.getSrc().getRow()];
-      pieceRook->setPosition(board[0][move.getSrc().getRow()]->getPosition());
-      board[0][move.getSrc().getRow()] = new Space(0, move.getSrc().getRow());
-   }
    // Check if there is a capture piece
-   else if (move.getCapture() != SPACE || move.getCapture() != INVALID)
+   if (move.getCapture() != SPACE || move.getCapture() != INVALID)
    {
       board[move.getDes().getCol()][move.getDes().getRow()] = new Space(move.getDes().getCol(), move.getDes().getRow());
    }
 
-   // Get the piece at the source position
-   Piece* piece = board[move.getSrc().getCol()][move.getSrc().getRow()];
+   // Get the pieces at the source position and destination position
+   Piece* piece1 = board[move.getSrc().getCol()][move.getSrc().getRow()];
+   Piece* piece2 = board[move.getDes().getCol()][move.getDes().getRow()];
 
    // Set the source position to a space
-   board[move.getSrc().getCol()][move.getSrc().getRow()] = board[move.getDes().getCol()][move.getDes().getRow()];
+   board[move.getSrc().getCol()][move.getSrc().getRow()] = piece2;
 
    // Move the piece to the destination position
-   board[move.getDes().getCol()][move.getDes().getRow()] = piece;
+   board[move.getDes().getCol()][move.getDes().getRow()] = piece1;
 
-   // Update the piece's position
-   piece->setPosition(move.getDes());
+   // Update the pieces' positions
+   piece1->setPosition(move.getDes());
+   piece2->setPosition(move.getSrc());
 
    // Increment the number of moves
    numMoves++;
 
-   piece->setLastMove(numMoves);
+   piece1->setLastMove(numMoves);
 }
 
 /**********************************************

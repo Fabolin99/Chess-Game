@@ -57,6 +57,7 @@ public:
 
 	friend TestMove;
 	friend TestBoard;
+	friend class Board;
 	// constructor
 	Move();
 	Move(Position from, Position to, MoveType mt, PieceType capturePiece, bool whiteTurn, bool fPromotion = false);
