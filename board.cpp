@@ -171,14 +171,6 @@ void Board::move(const Move& move)
    {
       return;
    }
-   cout << "Move Type: " << move.moveType << endl;
-   bool getCastlek = move.getCastleK();
-   cout << "Return from getCastleKing: " << getCastlek << endl;
-   cout << "Return from getPromotion:  " << move.getPromotion() << endl;
-   if (move.getPromotion() == INVALID)
-   {
-      cout << "Gotcha" << endl;
-   }
    // Deal with special moves
    // Check if it's a castling move
    if (move.getCastleK())
