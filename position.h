@@ -96,9 +96,9 @@ public:
     int getY() const { return getRow() * SIZE_SQUARE + OFFSET_BOARD; }
     void setXY(double x, double y)
     {
-        int c = static_cast<int>(x / squareWidth); // Convert the x coordinate to a column number
-        int r = static_cast<int>(y / squareHeight); // Convert the y coordinate to a row number
-        colRow = (c << 4) | r;
+       int c = static_cast<int>((x - OFFSET_BOARD) / squareWidth);                     // Convert the x coordinate to a column number
+       int r = static_cast<int>((squareHeight * 8 + OFFSET_BOARD - y) / squareHeight); // Convert the y coordinate to a row number
+       colRow = (c << 4) | r;
     }
     double getSquareWidth() const { return static_cast<double>(SIZE_SQUARE); }
     double getSquareHeight() const { return static_cast<double>(SIZE_SQUARE); }

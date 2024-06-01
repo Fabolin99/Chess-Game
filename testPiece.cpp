@@ -341,7 +341,7 @@ void TestPiece::justMoved_hasMoved()
  /*************************************
   * JUST MOVED : just moved
   * input: piece.fWhite=false .lastMove=4 .nMoves=2 .pos(2,3) .type=space
-  *        currentMove=5
+  *        currentMove=4
   * output:true
   **************************************/
 void TestPiece::justMoved_justMoved()
@@ -351,7 +351,7 @@ void TestPiece::justMoved_justMoved()
    piece.lastMove = 4;
    piece.nMoves = 2;
    piece.position = Position(2, 3);
-   int currentMove = 5;
+   int currentMove = 4;
    bool justMoved = false;
    // EXERCISE
    justMoved = piece.justMoved(currentMove);

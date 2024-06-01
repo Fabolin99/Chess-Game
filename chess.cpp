@@ -20,6 +20,7 @@
 #include <string>         // for STRING
 using namespace std;
 
+
 /*************************************
  * All the interesting work happens here, when
  * I get called back from OpenGL to draw a frame.
@@ -31,8 +32,30 @@ void callBack(Interface *pUI, void * p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Board * pBoard = (Board *)p;  
-   pBoard->display();
+   Board* pBoard = (Board*)p;
+   Board board = *pBoard;
+   set<Move> moves;
+   if (pUI->getSelectPosition().isValid())
+   {
+      if (pUI->getPreviousPosition().isValid())
+      {
+         board[pUI->getPreviousPosition()].getMoves(moves, *pBoard);
+         for (auto move : moves)
+         {
+            if (move.getDes() == pUI->getSelectPosition())
+            {
+               pBoard->move(move);
+               pUI->clearSelectPosition();
+            }
+         }
+         pUI->clearPreviousPosition();
+      }
+      else
+      {
+         board[pUI->getSelectPosition()].getMoves(moves, *pBoard);
+      }
+   }
+   pBoard->display(pUI->getHoverPosition(), pUI->getSelectPosition(), moves);
 }
 
 /*********************************

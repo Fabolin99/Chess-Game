@@ -22,6 +22,7 @@ using namespace std;
 void King::display(ogstream* pgout) const
 {
    pgout->drawKing(this->position, !this->fWhite);
+
 }
 
 /**********************************************

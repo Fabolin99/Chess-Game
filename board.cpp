@@ -106,27 +106,7 @@ Piece& Board::operator [] (const Position& pos)
    return *board[pos.getCol()][pos.getRow()];
 }
 
-/***********************************************
-* BOARD : DISPLAY
-*         Display the board
-***********************************************/
-void Board::display() const
-{
-   // draw the squares
-   pgout->drawBoard();
 
-   // draw pieces
-   for (int c = 0; c < 8; c++)
-   {
-      for (int r = 0; r < 8; r++)
-      {
-         if (board[c][r]->getType() != SPACE)
-         {
-            board[c][r]->display(pgout);            // call the display method of the piece 
-         }
-      }
-   }
-}
 
 /************************************************
  * BOARD : CONSTRUCT
@@ -221,14 +201,18 @@ void Board::move(const Move& move)
          board[move.getSrc().getCol()][move.getSrc().getRow()] = new Knight(move.getSrc().getCol(), move.getSrc().getRow(), move.getIsWhite());
       }
    }
-   else if (move.getCastleK())
+   if (move.getCastleK())
    {
       board[5][move.getSrc().getRow()] = board[7][move.getSrc().getRow()];
+      Piece* pieceRook = board[5][move.getSrc().getRow()];
+      pieceRook->setPosition(board[7][move.getSrc().getRow()]->getPosition());
       board[7][move.getSrc().getRow()] = new Space(7, move.getSrc().getRow());
    }
    else if (move.getCastleQ())
    {
       board[3][move.getSrc().getRow()] = board[0][move.getSrc().getRow()];
+      Piece* pieceRook = board[3][move.getSrc().getRow()];
+      pieceRook->setPosition(board[0][move.getSrc().getRow()]->getPosition());
       board[0][move.getSrc().getRow()] = new Space(0, move.getSrc().getRow());
    }
    // Check if there is a capture piece
@@ -246,8 +230,13 @@ void Board::move(const Move& move)
    // Move the piece to the destination position
    board[move.getDes().getCol()][move.getDes().getRow()] = piece;
 
+   // Update the piece's position
+   piece->setPosition(move.getDes());
+
    // Increment the number of moves
    numMoves++;
+
+   piece->setLastMove(numMoves);
 }
 
 /**********************************************
@@ -264,3 +253,33 @@ BoardEmpty::~BoardEmpty()
 {
    delete pSpace;
 }
+
+ //extra: 
+void Board::display(const Position& posHov, Position& posSelect, set<Move>& moves) const
+{
+   // draw the squares
+   pgout->drawBoard();
+
+   // draw select and hover
+   pgout->drawHover(posHov);
+   pgout->drawSelected(posSelect);
+
+   // draw possible moves
+   for (auto move : moves)
+   {
+      pgout->drawPossible(move.getDes());
+   }
+
+   // draw pieces
+   for (int c = 0; c < 8; c++)
+   {
+      for (int r = 0; r < 8; r++)
+      {
+         if (board[c][r]->getType() != SPACE)
+         {
+            board[c][r]->display(pgout);            // call the display method of the piece 
+         }
+      }
+   }
+}
+

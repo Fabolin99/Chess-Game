@@ -74,15 +74,17 @@ public:
    virtual int  getNMoves()                 const { return this->nMoves; }
    virtual void decrementNMoves()                 {                      }
    virtual const Position& getPosition()    const { return this->position; }
-   virtual bool justMoved(int currentMove)  const { return (this->lastMove == currentMove || this->lastMove == currentMove - 1); }
+   virtual bool justMoved(int currentMove)  const { return (this->lastMove == currentMove); }
 
    // setter
    virtual void setLastMove(int currentMove) { this->lastMove = currentMove; this->nMoves++; }
+   void setPosition(const Position& newPos) { position = newPos;}
+
 
    // overwritten by the various pieces
    virtual PieceType getType()       const { return SPACE; }; 
    virtual void display(ogstream* pgout)                         const = 0;
-   virtual void getMoves(set <Move>& moves, const Board& board) const; // added virtual
+   virtual void getMoves(set <Move>& moves, const Board& board) const; 
 
 protected:
 
